@@ -8,10 +8,12 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,8 +23,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.AssertJUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.asserts.SoftAssert;
 
 import com.googlecode.fightinglayoutbugs.FightingLayoutBugs;
 import com.googlecode.fightinglayoutbugs.LayoutBug;
@@ -34,9 +38,10 @@ public class BaseClass {
 
 	protected static WebDriver driver;
 	String browser = "chrome";
-	String baseURL = "https://admin.cybermart.com/auth/login";
+	String baseURL = "https://admin.cybermart.com";
 
 	private static JavascriptExecutor jsExecutor;
+	SoftAssert softAssert;
 
 	@BeforeClass
 	// @Parameters("browser")
@@ -60,6 +65,7 @@ public class BaseClass {
 			}
 
 			jsExecutor = (JavascriptExecutor) driver;
+			softAssert = new SoftAssert();
 
 		} catch (Exception e) {
 
@@ -317,6 +323,42 @@ public class BaseClass {
 			System.out.println(bug);
 		}
 		return layoutBugs.size();
+
+	}
+
+	public void isPageElementsDisplayed(List<WebElement> listOfElements) {
+
+		boolean result = false;
+
+		for (WebElement element : listOfElements) {
+
+			try {
+
+				result = element.isDisplayed();
+				AssertJUnit.assertTrue(result);
+
+			} catch (NoSuchElementException e) {
+
+				AssertJUnit.assertTrue(false);
+
+			}
+		}
+
+		softAssert.assertAll();
+
+	}
+
+	public boolean isWebElementDisplayed(WebElement element) {
+
+		try {
+
+			return element.isDisplayed();
+
+		} catch (NoSuchElementException e) {
+
+			return false;
+
+		}
 
 	}
 

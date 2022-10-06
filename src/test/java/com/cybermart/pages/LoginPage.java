@@ -17,42 +17,33 @@ public class LoginPage extends BaseClass {
 
 	}
 
-
 //	PAGE ELEMENTS
+
+	@FindBy(xpath = "//form[@class='MuiBox-root muiltr-5xwybr']/h6")
+	WebElement labelLogin;
+
+	@FindBy(xpath = "//input[@id='mui-2']")
+	WebElement inputFieldEmail;
+
+	@FindBy(xpath = "//input[@id='mui-3']")
+	WebElement inputFieldPassword;
+
+	@FindBy(xpath = "//label[@id='mui-2-label']")
+	WebElement labelInputFieldEmail;
+
+	@FindBy(xpath = "//label[@id='mui-3-label']")
+	WebElement labelInputFieldPassword;
 
 	@FindBy(css = ".MuiTypography-root.MuiTypography-body2.muiltr-1dzy9q8")
 	WebElement forgetLink;
 
-	@FindBy(name = "email")
-	WebElement inputFieldEmail;
-
-	@FindBy(name = "password")
-	WebElement inputFieldPassword;
-
 	@FindBy(id = "mui-4")
 	WebElement buttonLogin;
 
-
-
-
-
-
-
-
-
-	@FindBy(id = "loginForm-emailinput-label")
-	WebElement labelInputFieldEmail;
-
-	@FindBy(id = "loginForm-passwordInput-label")
-	WebElement labelInputFieldPassword;
-
-	@FindBy(xpath = "//*[@id=\"login\"]/div/div[1]/div/h3")
-	WebElement labelLogin;
-
-	@FindBy(id = "loginForm-emailinput-helper-text")
+	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[3]/div/div/div[1]/form/div[1]/p")
 	WebElement errorEmail;
 
-	@FindBy(id = "loginForm-passwordInput-helper-text")
+	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[3]/div/div/div[1]/form/div[2]/p")
 	WebElement errorPassword;
 
 	@FindBy(id = "loginForm-serverError")
@@ -94,8 +85,49 @@ public class LoginPage extends BaseClass {
 	@FindBy(id = "loginbutton")
 	WebElement buttonFacebookLogin;
 
-
 //	PAGE ELEMENTS
+
+	public WebElement getLabelLogin() {
+
+		return labelLogin;
+
+	}
+
+	public String getLabelEmailField() {
+
+		return labelInputFieldEmail.getAttribute("innerHTML");
+
+	}
+
+	public String getLabelPasswordField() {
+
+		return labelInputFieldPassword.getAttribute("innerHTML");
+
+	}
+
+	public String getEmailFieldPlaceholder() {
+
+		return inputFieldEmail.getAttribute("placeholder");
+
+	}
+
+	public String getPasswordFieldPlaceholder() {
+
+		return inputFieldPassword.getAttribute("placeholder");
+
+	}
+
+	public String getEmailError() {
+
+		return errorEmail.getAttribute("innerHTML");
+
+	}
+
+	public String getPasswordError() {
+
+		return errorPassword.getAttribute("innerHTML");
+
+	}
 
 	public void clickForgotLink() {
 
@@ -110,16 +142,6 @@ public class LoginPage extends BaseClass {
 		clickLoginButton();
 
 	}
-
-
-
-
-
-
-
-
-
-
 
 	public void clickEmailField() {
 
@@ -153,7 +175,7 @@ public class LoginPage extends BaseClass {
 
 	public void setEmail(String email) {
 
-		this.clearFieldData(inputFieldEmail);
+		clearFieldData(inputFieldEmail);
 		inputFieldEmail.sendKeys(email);
 
 	}
@@ -180,30 +202,6 @@ public class LoginPage extends BaseClass {
 	public void submitPassword() {
 
 		inputFieldPassword.submit();
-
-	}
-
-	public String getEmailFieldLabel() {
-
-		return inputFieldEmail.getText();
-
-	}
-
-	public String getPasswordFieldLabel() {
-
-		return inputFieldPassword.getText();
-
-	}
-
-	public String getEmailFieldPlaceholder() {
-
-		return inputFieldEmail.getAttribute("placeholder");
-
-	}
-
-	public String getPasswordFieldPlaceholder() {
-
-		return inputFieldPassword.getAttribute("placeholder");
 
 	}
 
@@ -312,18 +310,6 @@ public class LoginPage extends BaseClass {
 			e.printStackTrace();
 			return false;
 		}
-
-	}
-
-	public String getEmailError() {
-
-		return errorEmail.getAttribute("innerHTML");
-
-	}
-
-	public String getPasswordError() {
-
-		return errorPassword.getAttribute("innerHTML");
 
 	}
 
