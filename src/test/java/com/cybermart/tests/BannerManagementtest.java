@@ -2,6 +2,8 @@ package com.cybermart.tests;
 
 import static org.testng.Assert.assertEquals;
 
+import java.util.Locale;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
@@ -10,12 +12,14 @@ import org.testng.asserts.SoftAssert;
 import com.cybermart.pages.BannerManagementPage;
 import com.cybermart.pages.HeaderPage;
 import com.cybermart.pages.LoginPage;
+import com.github.javafaker.Faker;
 
 public class BannerManagementtest extends BaseClass {
 	LoginPage loginPage;
 	HeaderPage headerPage;
 	SoftAssert softAssert = new SoftAssert();
 	BannerManagementPage objbanner;
+	Faker faker = new Faker(new Locale("en"));
 
 	public static final String expectedEmailRequiredError = "Please enter the email.";
 	public static final String expectedMalformedEmailError = "Email is invalid.";
@@ -72,7 +76,19 @@ public class BannerManagementtest extends BaseClass {
 
 	}
 
-	@Test(priority = 8, enabled = true)
+
+	@Test(priority = 6, enabled = true)
+
+	public void settingfileds() {
+		String currentMessage;
+		objbanner.setFieldsForm(faker.name().firstName(),faker.number().digits(4),faker.number().digits(4),faker.number().digits(4),faker.number().digits(4));
+		 currentMessage = objbanner.getToastMsg();
+		assertEquals(currentMessage, "Banner Type inserted successfully");
+		
+		
+	}
+	
+	@Test(priority = 7, enabled = true)
 	public void clickingBckBtn() {
 		driver.navigate().refresh();
 		objbanner.clickBckBtn();
@@ -85,13 +101,6 @@ public class BannerManagementtest extends BaseClass {
 
 	}
 
-	@Test(priority = 7, enabled = true)
-
-	public void settingfileds() {
-		objbanner.setFieldsForm("abc", "1234","234","67","2376");
-		
-		
-	}
 
 	@AfterTest
 	public void closeDriver() {

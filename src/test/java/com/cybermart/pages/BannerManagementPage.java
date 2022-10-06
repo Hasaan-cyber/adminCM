@@ -54,6 +54,10 @@ public class BannerManagementPage extends BaseClass {
 
 	@FindBy(xpath = "//button[@ title= 'save']")
 	WebElement savBtn;
+	
+	@FindBy(xpath = "//div[contains(text(),'Banner Type inserted successfully')]")
+	WebElement toastMsg;
+	
 
 	// functions
 	public void bannerTypeclick() {
@@ -87,6 +91,11 @@ public class BannerManagementPage extends BaseClass {
 
 		return nameError.getAttribute("innerHTML");
 
+	}
+	
+	public String getToastMsg() 
+	{
+		return toastMsg.getAttribute("innerHTML");
 	}
 
 	public void clickBckBtn() {
