@@ -39,7 +39,6 @@ public class LoginPage extends BaseClass {
 
 
 
-
 	@FindBy(id = "loginForm-emailinput-label")
 	WebElement labelInputFieldEmail;
 

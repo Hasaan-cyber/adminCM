@@ -37,6 +37,9 @@ public class BaseClass {
 	String baseURL = "https://admin.cybermart.com/auth/login";
 
 	private static JavascriptExecutor jsExecutor;
+	
+	//hasaan's declaration
+	public static JavascriptExecutor js  = (JavascriptExecutor) driver;
 
 	@BeforeClass
 	// @Parameters("browser")
@@ -98,6 +101,7 @@ public class BaseClass {
 		return pageStatus;
 
 	}
+	
 
 	public void jsPageScroller(WebElement element) {
 
@@ -318,6 +322,13 @@ public class BaseClass {
 		}
 		return layoutBugs.size();
 
+	}
+	
+	//scrolling
+	
+	public void ScrollingDown() {
+	 js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,350)", "");
 	}
 
 	@AfterClass
