@@ -10,7 +10,8 @@ import com.cybermart.tests.BaseClass;
 
 public class BannerManagementPage extends BaseClass {
 
-	// constructor
+	// constructor 
+	//test
 	public BannerManagementPage() {
 		elementsInitializer();
 	}
