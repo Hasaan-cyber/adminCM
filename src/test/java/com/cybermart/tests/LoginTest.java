@@ -610,7 +610,7 @@ public class LoginTest extends BaseClass {
 	@Test(priority = 32, enabled = false)
 	public void verifyIsLoginRegisterLinksDisplaying() {
 
-		boolean result;
+		// boolean result;
 
 		// result = isWebElementDisplayed(headerPage.getLinkLogin());
 		// AssertJUnit.assertFalse(result);
