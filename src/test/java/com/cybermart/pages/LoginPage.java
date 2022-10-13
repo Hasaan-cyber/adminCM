@@ -1,11 +1,14 @@
 package com.cybermart.pages;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
 import com.cybermart.tests.BaseClass;
 
@@ -20,43 +23,46 @@ public class LoginPage extends BaseClass {
 //	PAGE ELEMENTS
 
 	@FindBy(xpath = "//form[@class='MuiBox-root muiltr-5xwybr']/h6")
-	WebElement labelLogin;
+	private WebElement labelLogin;
 
 	@FindBy(xpath = "//input[@id='mui-2']")
-	WebElement inputFieldEmail;
+	private WebElement inputFieldEmail;
 
 	@FindBy(xpath = "//input[@id='mui-3']")
-	WebElement inputFieldPassword;
+	private WebElement inputFieldPassword;
 
 	@FindBy(xpath = "//label[@id='mui-2-label']")
-	WebElement labelInputFieldEmail;
+	private WebElement labelInputFieldEmail;
 
 	@FindBy(xpath = "//label[@id='mui-3-label']")
-	WebElement labelInputFieldPassword;
+	private WebElement labelInputFieldPassword;
 
 	@FindBy(css = ".MuiTypography-root.MuiTypography-body2.muiltr-1dzy9q8")
-	WebElement forgetLink;
+	private WebElement linkforgotPassword;
 
 	@FindBy(id = "mui-4")
-	WebElement buttonLogin;
+	private WebElement buttonLogin;
 
 	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[3]/div/div/div[1]/form/div[1]/p")
-	WebElement errorEmail;
+	private WebElement errorEmail;
 
 	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[3]/div/div/div[1]/form/div[2]/p")
-	WebElement errorPassword;
+	private WebElement errorPassword;
+
+	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[3]/div/div/div[1]/form/div[1]/div/div/div")
+	private WebElement iconEmailError;
+
+	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[3]/div/div/div[1]/form/div[2]/div/div/div/button")
+	private WebElement buttonTogglePassword;
+
+	@FindBy(xpath = "//div[@class='Toastify__toast-body']/div[2]")
+	private WebElement toastMessage;
+
+	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[3]/div/div/div[2]")
+	private WebElement imageLogin;
 
 	@FindBy(id = "loginForm-serverError")
 	WebElement errorEmailOrPassword;
-
-	@FindBy(id = "togglePassword")
-	WebElement buttonTogglePassword;
-
-	@FindBy(id = "loginForm-forgotPassword")
-	WebElement linkForgot;
-
-	@FindBy(id = "loginForm-registerLink")
-	WebElement linkRegister;
 
 	@FindBy(id = "loginForm-googleBtn")
 	WebElement buttonLoginWithGoogle;
@@ -87,9 +93,62 @@ public class LoginPage extends BaseClass {
 
 //	PAGE ELEMENTS
 
+	public List<WebElement> getLoginPageElementsList() {
+
+		List<WebElement> list = new ArrayList<WebElement>();
+
+		list.add(labelLogin);
+		list.add(inputFieldEmail);
+		list.add(inputFieldPassword);
+		list.add(buttonTogglePassword);
+		list.add(linkforgotPassword);
+		list.add(buttonLogin);
+		list.add(imageLogin);
+
+		return list;
+
+	}
+
+	public String getLoginFormHeading() {
+
+		return labelLogin.getAttribute("innerHTML");
+
+	}
+
+	public WebElement getImageLogin() {
+
+		return imageLogin;
+
+	}
+
+	public WebElement getToast() {
+
+		return toastMessage;
+
+	}
+
+	public String getToastMessageText() {
+
+		return toastMessage.getAttribute("innerHTML");
+
+	}
+
 	public WebElement getLabelLogin() {
 
 		return labelLogin;
+
+	}
+
+	public WebElement getIconEmailError() {
+
+		System.out.println(iconEmailError.toString());
+		return iconEmailError;
+
+	}
+
+	public WebElement getbuttonLogin() {
+
+		return buttonLogin;
 
 	}
 
@@ -131,15 +190,7 @@ public class LoginPage extends BaseClass {
 
 	public void clickForgotLink() {
 
-		forgetLink.click();
-
-	}
-
-	public void loginUserSuccessfull() {
-
-		setEmail("airas.mangotech@gmail.com");
-		setPassword("123456");
-		clickLoginButton();
+		linkforgotPassword.click();
 
 	}
 
@@ -164,12 +215,6 @@ public class LoginPage extends BaseClass {
 	public void clickTogglePasswordButton() {
 
 		buttonTogglePassword.click();
-
-	}
-
-	public void clickRegisterLink() {
-
-		linkRegister.click();
 
 	}
 
@@ -202,114 +247,6 @@ public class LoginPage extends BaseClass {
 	public void submitPassword() {
 
 		inputFieldPassword.submit();
-
-	}
-
-	public boolean isLoginLabelVisible() {
-
-		try {
-			labelLogin.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isEmailFieldVisible() {
-
-		try {
-			inputFieldEmail.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isPasswordFieldVisible() {
-
-		try {
-			inputFieldPassword.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isRegisterLinkVisible() {
-
-		try {
-			linkRegister.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isLoginButtonVisible() {
-
-		try {
-			buttonLogin.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isGoogleButtonVisible() {
-
-		try {
-			buttonLoginWithGoogle.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isFacebookButtonVisible() {
-
-		try {
-			buttonLoginWithFacebook.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isTogglePasswordButtonVisible() {
-
-		try {
-			buttonTogglePassword.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-	}
-
-	public boolean isForgotPasswordLinkVisible() {
-
-		try {
-			linkForgot.isDisplayed();
-			return true;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-			return false;
-		}
 
 	}
 
@@ -377,6 +314,89 @@ public class LoginPage extends BaseClass {
 	public void clickLoginFacebook() {
 
 		buttonFacebookLogin.click();
+
+	}
+
+	public void loginWithGoogle() {
+
+		// Store the current window handle
+		String parentWindow = driver.getWindowHandle();
+
+		// Perform the click operation that opens new window
+		clickGoogleLoginButton();
+
+		// Switch to new window opened
+		Set<String> handles = driver.getWindowHandles();
+
+		for (String windowHandle : handles) {
+
+			if (!windowHandle.equals(parentWindow)) {
+
+				driver.switchTo().window(windowHandle);
+
+				// Perform the actions on new window
+				setGoogleEmail("rizwan@convextech.com");
+				clickNextGoogleEmail();
+				setGooglePassword("CyberMart2022");
+				clickNextGooglePassword();
+
+				// Close the new window, if that window no more required
+				// driver.close();
+
+			}
+
+		}
+
+		// Switch back to original browser (first window)
+		// driver.switchTo().defaultContent();
+		driver.switchTo().window(parentWindow);
+
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(getToast()));
+		String actualMessage = getToastMessageText();
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.invisibilityOf(getToast()));
+		Assert.assertEquals(actualMessage, "Logged-In successfully");
+
+	}
+
+	public void loginWithFacebook() {
+
+		// Store the current window handle
+		String parentWindow = driver.getWindowHandle();
+
+		// Perform the click operation that opens new window
+		clickFacebookLoginButton();
+
+		// Switch to new window opened
+		Set<String> windowHandles = driver.getWindowHandles();
+
+		for (String window : windowHandles) {
+
+			if (!window.equals(parentWindow)) {
+
+				driver.switchTo().window(window);
+
+				// Perform the actions on new window
+				setFacebookEmail("rizwan@convextech.com");
+				setFacebookPassword("Rizwan@123");
+				clickLoginFacebook();
+
+				// Close the new window, if that window no more required
+				// driver.close();
+
+			}
+
+		}
+
+		// Switch back to original browser (first window)
+		// driver.switchTo().defaultContent();
+		driver.switchTo().window(parentWindow);
+
+		// Continue with original browser (first window)
+
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(getToast()));
+		String actualMessage = getToastMessageText();
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.invisibilityOf(getToast()));
+		Assert.assertEquals(actualMessage, "Logged-In successfully");
 
 	}
 

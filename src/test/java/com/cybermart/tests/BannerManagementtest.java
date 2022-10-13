@@ -76,18 +76,17 @@ public class BannerManagementtest extends BaseClass {
 
 	}
 
-
 	@Test(priority = 6, enabled = true)
 
 	public void settingfileds() {
 		String currentMessage;
-		objbanner.setFieldsForm(faker.name().firstName(),faker.number().digits(4),faker.number().digits(4),faker.number().digits(4),faker.number().digits(4));
-		 currentMessage = objbanner.getToastMsg();
+		objbanner.setFieldsForm(faker.name().firstName(), faker.number().digits(4), faker.number().digits(4),
+				faker.number().digits(4), faker.number().digits(4));
+		currentMessage = objbanner.getToastMsg();
 		assertEquals(currentMessage, "Banner Type inserted successfully");
-		
-		
+
 	}
-	
+
 	@Test(priority = 7, enabled = true)
 	public void clickingBckBtn() {
 		driver.navigate().refresh();
@@ -100,7 +99,6 @@ public class BannerManagementtest extends BaseClass {
 		}
 
 	}
-
 
 	@AfterTest
 	public void closeDriver() {

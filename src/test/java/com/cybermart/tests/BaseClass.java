@@ -23,7 +23,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.AssertJUnit;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.asserts.SoftAssert;
@@ -123,6 +122,12 @@ public class BaseClass {
 
 	}
 
+	public void jsOpenNewTab() {
+
+		jsExecutor.executeScript("window.open('about:blank','_blank');");
+
+	}
+
 	public void clearFieldData(WebElement element) {
 
 		element.sendKeys(Keys.SHIFT, Keys.ARROW_UP);
@@ -185,6 +190,7 @@ public class BaseClass {
 	public WebDriverWait myWait(Duration timeoutInSeconds) {
 
 		WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+
 		return wait;
 
 	}
@@ -253,23 +259,28 @@ public class BaseClass {
 	}
 
 //	CUSTOM METHOD TO ENTER INVALID STATIC EMAILS INTO EMAIL FIELD AT PAGE
-	public void staticInvalidEmailChecker(WebElement emailField, WebElement submitButton, WebElement emailErrorElement,
-			String expectedEmailErrorText) {
+	public void staticInvalidEmailChecker(WebElement emailField, WebElement buttonSubmit, String actualError,
+			String expectedError) {
 
 		String[] listOfInvalidEmails = { "plainaddress123", "123@1123.1123", "a@a.a", "email@example,com",
 				"@example.com", "Joe Smith <email@example.com>", "email.example.com", "email.@example.com",
-				"email..email@example.com" };
+				"email..email@example.com", "joe smith@example.com" };
 
 		for (String invalidEmail : listOfInvalidEmails) {
 
 			emailField.clear();
 			emailField.sendKeys(invalidEmail);
 
-			submitButton.click();
+			// emailField.sendKeys(Keys.TAB);
 
-			Assert.assertEquals(emailErrorElement.getAttribute("innerHTML"), expectedEmailErrorText);
+			buttonSubmit.click();
+
+			softAssert.assertEquals(actualError, expectedError);
 
 		}
+
+		emailField.clear();
+		softAssert.assertAll();
 
 	}
 
@@ -335,11 +346,11 @@ public class BaseClass {
 			try {
 
 				result = element.isDisplayed();
-				AssertJUnit.assertTrue(result);
+				Assert.assertTrue(result);
 
 			} catch (NoSuchElementException e) {
 
-				AssertJUnit.assertTrue(false);
+				Assert.assertTrue(false);
 
 			}
 		}
@@ -360,6 +371,21 @@ public class BaseClass {
 
 		}
 
+	}
+
+	public void dropdownOptionSelector(List<WebElement> listOfWebElements, String option) {
+
+		for (WebElement element : listOfWebElements) {
+
+			String currentOption = element.getText();
+
+			if (currentOption.equals(option)) {
+
+				element.click();
+				break;
+
+			}
+		}
 	}
 
 	@AfterClass

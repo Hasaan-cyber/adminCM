@@ -2,7 +2,6 @@ package com.cybermart.pages;
 
 import java.util.List;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -27,28 +26,16 @@ public class HeaderPage extends BaseClass {
 	@FindBy(xpath = "//div[@class='MuiBox-root muiltr-1qjfp49']//div[3]")
 	WebElement tabUserTypes;
 
-
-
-
-
-
-
-
-
-
-
-
-
 	@FindBy(xpath = "//*[@id=\"topbar_main\"]/div/div[3]/div/span/a[1]")
 	WebElement login;
 
 	@FindBy(xpath = "//*[@id=\"topbar_main\"]/div/div[3]/div/span/a[2]")
 	WebElement register;
 
-	@FindBy(xpath = "//*[@id=\"topbar_main\"]/div/div[3]/div/div[2]")
-	WebElement btnProfile;
+	@FindBy(xpath = "//*[@id=\"__next\"]/div/div[2]/div[2]/header/div/div[2]/div")
+	WebElement buttonProfile;
 
-	@FindBys(@FindBy(xpath = "//*[@id=\"popover-contained\"]/div[2]/span/a"))
+	@FindBys(@FindBy(xpath = "/html/body/div[2]/div[3]/ul"))
 	List<WebElement> profileDDMenu;
 
 	@FindBy(xpath = "/html/body/div/div[1]/div[1]/div/div[1]/div/div/div[2]/div/div[3]/div/button")
@@ -81,6 +68,18 @@ public class HeaderPage extends BaseClass {
 	@FindBy(xpath = "//*[@id=\"topbar_main\"]/div/div[3]/div/div[1]/button")
 	WebElement btnShoppingCart;
 
+	public WebElement getButtonProfile() {
+
+		return buttonProfile;
+
+	}
+
+	public List<WebElement> getProfileDDMenu() {
+
+		return profileDDMenu;
+
+	}
+
 	public void clickAtSystemTab() {
 
 		mainTabSettings.click();
@@ -94,18 +93,6 @@ public class HeaderPage extends BaseClass {
 		tabUserTypes.click();
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public void setSearchKeyword(String keyword) {
 
@@ -126,31 +113,9 @@ public class HeaderPage extends BaseClass {
 
 	}
 
-	public boolean isLoggedIn() {
-
-		boolean result = false;
-
-		try {
-
-			result = btnProfile.isDisplayed();
-			return result;
-
-		} catch (NoSuchElementException e) {
-
-			return result;
-
-		}
-	}
-
-	public boolean isLoggedOut() {
-
-		return login.isDisplayed();
-
-	}
-
 	public void clickProfile() {
 
-		btnProfile.click();
+		buttonProfile.click();
 
 	}
 
@@ -218,21 +183,6 @@ public class HeaderPage extends BaseClass {
 
 	}
 
-	public void clickProfileMenuOption(String option) {
-
-		for (WebElement element : profileDDMenu) {
-
-			String currentOption = element.getText();
-
-			if (currentOption.equals(option)) {
-
-				element.click();
-				break;
-
-			}
-		}
-	}
-
 	public void selectCategorySearchDD() {
 
 		Select category = new Select(searchBarCategoryDDMenu);
@@ -268,6 +218,12 @@ public class HeaderPage extends BaseClass {
 
 			}
 		}
+	}
+
+	public boolean isLoggedIn() {
+
+		return isWebElementDisplayed(buttonProfile);
+
 	}
 
 }

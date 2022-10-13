@@ -20,7 +20,6 @@ public class UserTypesPage extends BaseClass {
 
 	}
 
-
 //	PAGE ELEMENTS
 
 	@FindBy(css = ".MuiTypography-root.MuiTypography-h6.muiltr-4pzalf")
@@ -46,7 +45,6 @@ public class UserTypesPage extends BaseClass {
 
 	@FindBy(css = ".MuiGrid-root.MuiGrid-item.MuiGrid-grid-md-4.muiltr-9kaoqg")
 	WebElement pageImage;
-
 
 //	PAGE METHODS
 
@@ -78,12 +76,6 @@ public class UserTypesPage extends BaseClass {
 
 		clearFieldData(emailField);
 		emailField.sendKeys(email);
-
-	}
-
-	public void enterListOfStaticInvalidEmails() {
-
-		staticInvalidEmailChecker(emailField, btnSendOTP, errorEmail, "Email is invalid.");
 
 	}
 

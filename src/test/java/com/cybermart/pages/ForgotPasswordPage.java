@@ -20,7 +20,6 @@ public class ForgotPasswordPage extends BaseClass {
 
 	}
 
-
 //	PAGE ELEMENTS
 
 	@FindBy(css = ".MuiTypography-root.MuiTypography-h6.muiltr-4pzalf")
@@ -46,7 +45,6 @@ public class ForgotPasswordPage extends BaseClass {
 
 	@FindBy(css = ".MuiGrid-root.MuiGrid-item.MuiGrid-grid-md-4.muiltr-9kaoqg")
 	WebElement pageImage;
-
 
 //	PAGE METHODS
 
@@ -81,9 +79,15 @@ public class ForgotPasswordPage extends BaseClass {
 
 	}
 
+	public String getEmailError() {
+
+		return errorEmail.getAttribute("innerHTML");
+
+	}
+
 	public void enterListOfStaticInvalidEmails() {
 
-		staticInvalidEmailChecker(inputFieldEmail, btnSendOTP, errorEmail, "Email is invalid.");
+		staticInvalidEmailChecker(inputFieldEmail, btnSendOTP, getEmailError(), "Email is invalid.");
 
 	}
 

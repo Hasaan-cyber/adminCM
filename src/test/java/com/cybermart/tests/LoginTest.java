@@ -7,7 +7,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import com.cybermart.pages.HeaderPage;
@@ -15,6 +14,8 @@ import com.cybermart.pages.LoginPage;
 
 public class LoginTest extends BaseClass {
 
+	// Declaring the global objects of LoginPage and HeaderPage, so to make the
+	// access throughout the class.
 	LoginPage loginPage;
 	HeaderPage headerPage;
 
@@ -26,227 +27,62 @@ public class LoginTest extends BaseClass {
 	public static final String errorPasswordRequired = "Please enter the password.";
 	public static final String errorInvalidEmailOrPassword = "You have entered an invalid email or password.";
 	public static final String errorAccountNotRegistered = "The entered email address is not connected to an account.";
-
-	public static final String errorMalformedEmail = "Email is invalid";
+	public static final String errorMalformedEmail = "Please enter a valid email.";
 	public static final String errorAccountLocked = "Your account has been locked due to invalid login attempts. Please try again after 30 minutes.";
 	public static final String errorAccountLockedTime = "Your account has been locked due to invalid login attempts. Please try again after 29 minutes.";
+	public static final String messageLoginSuccess = "Logged-In successfully";
+	public static final String messageLogoutSuccess = "Logout successfully";
 	public static final String registrationPageURL = "https://next.cybermart.com/register";
+	public static final String validRegisteredEmail = "airas.mangotech@gmail.com";
+	public static final String validPassword = "123456";
 
 	@Test(priority = 1, enabled = true)
 	public void verifyLoginPageLoaded() {
 
+		// initializing the HeaderPage and LoginPage classes objects.
 		headerPage = new HeaderPage();
 		loginPage = new LoginPage();
 
+		/*
+		 * Using the jsPageLoadingStatus method of BaseClass validates if the page is
+		 * loaded successfully or not.
+		 */
 		Assert.assertTrue(jsPageLoadingStatus());
 
 	}
 
-	@Test(priority = 2, enabled = false)
+	@Test(priority = 2, enabled = true)
 	public void verifyLoginPageURL() {
 
+		/*
+		 * Validates the current URL, myWait method of BaseClass is used to add some
+		 * wait as sometimes driver picks the URL before it's loaded.
+		 */
 		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(loginPageURL));
 
 	}
 
-	@Test(priority = 3, enabled = false)
+	@Test(priority = 3, enabled = true)
 	public void verifyLoginPageTitle() {
 
+		/*
+		 * Validates the current page Title, myWait method of BaseClass is used to add
+		 * some wait as sometimes driver picks the title of the page before it's loaded.
+		 */
 		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.titleIs(loginPageTitle));
 
 	}
 
-	@Test(priority = 4, enabled = false)
-	public void verifyLoginHeadingDisplayed() {
-
-		boolean status = isWebElementDisplayed(loginPage.getLabelLogin());
-
-		Assert.assertTrue(status);
-
-	}
-
-	@Test(priority = 5, enabled = false)
-	public void verifyEmailLabel() {
-
-		String actualLabel;
-
-		actualLabel = loginPage.getLabelEmailField();
-		Assert.assertEquals(actualLabel, "Email");
-
-	}
-
-	@Test(priority = 6, enabled = false)
-	public void verifyPasswordLabel() {
-
-		String actualLabel;
-
-		actualLabel = loginPage.getLabelPasswordField();
-		Assert.assertEquals(actualLabel, "Password");
-
-	}
-
-	@Test(priority = 7, enabled = false)
-	public void verifyEmailPlaceholder() {
-
-		String actualPlaceholder;
-
-		actualPlaceholder = loginPage.getLabelEmailField();
-		Assert.assertEquals(actualPlaceholder, emailPlaceholder);
-
-	}
-
-	@Test(priority = 8, enabled = false)
-	public void verifyPasswordPlaceholder() {
-
-		String actualPlaceholder;
-
-		actualPlaceholder = loginPage.getLabelPasswordField();
-		Assert.assertEquals(actualPlaceholder, passwordPlaceholder);
-
-	}
-
-	@Test(priority = 9, enabled = false)
-	public void verifyEmailRequiredErrorMessage() {
-
-		loginPage.clickEmailField();
-		loginPage.getInputFieldEmail().sendKeys(Keys.TAB);
-
-		String currentError = loginPage.getEmailError();
-
-		Assert.assertEquals(currentError, errorEmailRequired);
-
-	}
-
-	@Test(priority = 10, enabled = false)
-	public void verifyPasswordRequiredErrorMessage() {
-
-		loginPage.clickPasswordField();
-		loginPage.getInputFieldPassword().sendKeys(Keys.TAB);
-
-		String currentError = loginPage.getPasswordError();
-
-		Assert.assertEquals(currentError, errorPasswordRequired);
-
-	}
-
-	@Test(priority = 11, enabled = false)
-	public void verifyBlankEmailLoginFails() {
-
-		loginPage.setPassword("Rizwan@123");
-		loginPage.clickLoginButton();
-
-		String currentError = loginPage.getEmailError();
-		clearFieldData(loginPage.getInputFieldPassword());
-
-		Assert.assertEquals(currentError, errorEmailRequired);
-
-	}
-
-	@Test(priority = 12, enabled = false)
-	public void verifyBlankPasswordLoginFails() {
-
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.clickLoginButton();
-
-		String currentError = loginPage.getPasswordError();
-		clearFieldData(loginPage.getInputFieldEmail());
-
-		Assert.assertEquals(currentError, errorPasswordRequired);
-
-	}
-
-	@Test(priority = 13, enabled = false)
-	public void verifyBlankEmailAndPasswordLoginFails() {
-
-		String currentError;
-		loginPage.clickLoginButton();
-
-		currentError = loginPage.getEmailError();
-		Assert.assertEquals(currentError, errorEmailRequired);
-
-		currentError = loginPage.getPasswordError();
-		Assert.assertEquals(currentError, errorPasswordRequired);
-
-	}
-
-	@Test(priority = 14, enabled = false)
-	public void verifyInvalidPasswordLoginFails() {
-
-		loginPage.setEmail("airas.mangotech@gmail.com");
-		loginPage.setPassword(randomStringGenerator());
-		loginPage.clickLoginButton();
-
-		String currentErrorMessage = loginPage.getPasswordError();
-		Assert.assertEquals(currentErrorMessage, errorInvalidEmailOrPassword);
-
-	}
-
-	@Test(priority = 15, enabled = false)
-	public void verifyUnregisteredEmailLoginFails() {
-
-		loginPage.setEmail("airas.mangtech@gmail.com");
-		loginPage.setPassword("123456");
-		loginPage.clickLoginButton();
-
-		String currentErrorMessage = loginPage.getPasswordError();
-		Assert.assertEquals(currentErrorMessage, errorAccountNotRegistered);
-
-	}
-
-	@Test(priority = 16, enabled = true)
-	public void verifyInvalidEmailAndPasswordLoginFails() {
-
-		loginPage.setEmail(randomStringGenerator() + "@gmail.com");
-		loginPage.setPassword(randomNumberGenerator());
-		loginPage.clickLoginButton();
-
-		String currentErrorMessage = loginPage.getPasswordError();
-		Assert.assertEquals(currentErrorMessage, errorAccountNotRegistered);
-
-	}
-
-	@Test(priority = 17, enabled = false)
-	public void verifyMalformedEmailErrorMessage() {
-
-		String currentError;
-
-		loginPage.setEmail("rizwan123");
-		loginPage.setPassword("Rizwan123");
-		loginPage.clickLoginButton();
-		currentError = loginPage.getEmailError();
-		AssertJUnit.assertEquals(currentError, errorMalformedEmail);
-
-		loginPage.setEmail("123@1123.1123");
-		loginPage.clickLoginButton();
-		currentError = loginPage.getEmailError();
-		AssertJUnit.assertEquals(currentError, errorMalformedEmail);
-
-		loginPage.setEmail("a@a.a");
-		loginPage.clickLoginButton();
-		currentError = loginPage.getEmailError();
-		AssertJUnit.assertEquals(currentError, errorMalformedEmail);
-
-		loginPage.setEmail("rizwan@convextech,com");
-		loginPage.clickLoginButton();
-		currentError = loginPage.getEmailError();
-		AssertJUnit.assertEquals(currentError, errorMalformedEmail);
-
-		loginPage.setEmail("rizwan sakhi@convextech.com");
-		loginPage.clickLoginButton();
-		currentError = loginPage.getEmailError();
-		AssertJUnit.assertEquals(currentError, errorMalformedEmail);
-
-		loginPage.clearFieldData(loginPage.getInputFieldEmail());
-		loginPage.clearFieldData(loginPage.getInputFieldPassword());
-
-		softAssert.assertAll();
-
-	}
-
-	@Test(priority = 2, enabled = false)
+	@Test(priority = 4, enabled = true)
 	public void verifyPageElementsDisplayed() {
 
-		// isPageElementsDisplayed(loginPage.getLoginPageElementsList());
+		/*
+		 * Validates the presence of page elements using BaseClass method
+		 * isPageElementsDisplayed, which Takes list of WebElements as it's parameter.
+		 * getLoginPageElementsList is a method in LoginPage class which returns the
+		 * list of WebElements.
+		 */
+		isPageElementsDisplayed(loginPage.getLoginPageElementsList());
 
 	}
 
@@ -254,371 +90,1034 @@ public class LoginTest extends BaseClass {
 	 * This test case is disabled for now as used library is slow and sometimes does
 	 * not return good results.
 	 */
-	@Test(priority = 3, enabled = false)
+	@Test(priority = 5, enabled = false)
 	public void verifyPageLayout() {
 
+		/*
+		 * Calling findPageLayoutBugs method of BaseClass, which actually uses a google
+		 * api to perform this job.
+		 */
 		int bugsCount = findPageLayoutBugs();
-		AssertJUnit.assertEquals(bugsCount, 0);
+
+		// Validates if the bug count is 0 or not.
+		Assert.assertEquals(bugsCount, 0);
 
 	}
 
-	@Test(priority = 4, enabled = false)
+	@Test(priority = 6, enabled = true)
 	public void verifyCursorPosition() {
 
-		WebElement activeElement = driver.switchTo().activeElement();
+		// Assigned Email field to Expected result.
+		WebElement expectedResult = loginPage.getInputFieldEmail();
 
-		AssertJUnit.assertTrue(loginPage.getInputFieldEmail().equals(activeElement));
+		// Returns the current active (focused) element on page.
+		WebElement actualResult = driver.switchTo().activeElement();
 
-	}
-
-	@Test(priority = 5, enabled = false)
-	public void verifyMinMaxCharLength() {
-
-		int[] charLength;
-		int minCharLength, maxCharLength;
-
-		charLength = getMinMaxCharacterLength(loginPage.getInputFieldEmail());
-		minCharLength = charLength[0];
-		AssertJUnit.assertEquals(minCharLength, 6);
-		maxCharLength = charLength[1];
-		AssertJUnit.assertEquals(maxCharLength, 60);
-		softAssert.assertAll();
+		// Validates if the actual result is same as the expected result or not.
+		Assert.assertEquals(actualResult, expectedResult);
 
 	}
 
-	@Test(priority = 13, enabled = false)
-	public void verifyCopyMaskedPassword() {
+	@Test(priority = 7, enabled = true)
+	public void verifyLoginFormHeading() {
 
-		loginPage.setPassword("TestPassword");
-		String copiedText = copyFiedData(loginPage.getInputFieldPassword());
+		// Expected heading of the login form
+		String expectedResult = "Login";
 
-		Assert.assertNotEquals(copiedText, "TestPassword");
+		// Using getLoginFormHeading method of LoginPage class get's the login form
+		// heading.
+		String actualResult = loginPage.getLoginFormHeading();
 
-	}
-
-	@Test(priority = 14, enabled = false)
-	public void verifyCopyRevealedPassword() {
-
-		loginPage.setPassword("TestPassword");
-
-		// Changed the password field status to visible
-		loginPage.clickTogglePasswordButton();
-		String copiedText = copyFiedData(loginPage.getInputFieldPassword());
-
-		// Reset the password field state by refreshing the page
-		driver.navigate().refresh();
-
-		AssertJUnit.assertEquals(copiedText, "TestPassword");
+		// Validates the actual and expected results are same or not.
+		Assert.assertEquals(actualResult, expectedResult);
 
 	}
 
-	@Test(priority = 15, enabled = false)
-	public void verifyPasswordIsVisible() {
+	@Test(priority = 8, enabled = true)
+	public void verifyEmailLabel() {
 
-		loginPage.setPassword("Rizwan123");
-		loginPage.clickTogglePasswordButton();
+		// Created local variable for expected result.
+		String expectedLabel = "Email";
 
-		String currentToggleState = loginPage.getPasswordVisibilityStatus();
+		// Get the actual label of email field.
+		String actualLabel = loginPage.getLabelEmailField();
 
-		AssertJUnit.assertEquals(currentToggleState, "text");
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualLabel, expectedLabel);
+
+	}
+
+	@Test(priority = 9, enabled = true)
+	public void verifyPasswordLabel() {
+
+		// Created local variable for expected result.
+		String expectedLabel = "Password";
+
+		// Get the actual label of password field.
+		String actualLabel = loginPage.getLabelPasswordField();
+
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualLabel, expectedLabel);
+
+	}
+
+	@Test(priority = 10, enabled = true)
+	public void verifyEmailPlaceholder() {
+
+		// Created local variable for expected result.
+		String expectedPlaceholder = emailPlaceholder;
+
+		// Get the actual placeholder of email field.
+		String actualPlaceholder = loginPage.getEmailFieldPlaceholder();
+
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder);
+
+	}
+
+	@Test(priority = 11, enabled = true)
+	public void verifyPasswordPlaceholder() {
+
+		// Created local variable for expected result.
+		String expectedPlaceholder = passwordPlaceholder;
+
+		// Get the actual placeholder of email field.
+		String actualPlaceholder = loginPage.getPasswordFieldPlaceholder();
+
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder);
+
+	}
+
+	@Test(priority = 12, enabled = true)
+	public void verifyEmailRequiredErrorMessage() {
+
+		// Created local variable to store expected result.
+		String expectedError = errorEmailRequired;
+
+		// Clicks the email field.
+		loginPage.clickEmailField();
+
+		// Focus out the email field.
+		loginPage.getInputFieldEmail().sendKeys(Keys.TAB);
+
+		// Get the actual error message displayed.
+		String actualError = loginPage.getEmailError();
+
+		// Compares the actual and expected Error messages.
+		Assert.assertEquals(actualError, expectedError);
+
+	}
+
+	@Test(priority = 13, enabled = true)
+	public void verifyPasswordRequiredErrorMessage() {
+
+		// Created local variable to store expected result.
+		String expectedError = errorPasswordRequired;
+
+		// Clicks the password field.
+		loginPage.clickPasswordField();
+
+		// Focus out the password field.
+		loginPage.getInputFieldPassword().sendKeys(Keys.TAB);
+
+		// Get the actual error message displayed.
+		String actualError = loginPage.getPasswordError();
+
+		// Compares the actual and expected Error messages.
+		Assert.assertEquals(actualError, expectedError);
+
+	}
+
+	@Test(priority = 14, enabled = true)
+	public void verifyBlankEmailLoginFails() {
+
+		// Created local variable to store expected result.
+		String expectedError = errorEmailRequired;
+
+		// Set the value in password field.
+		loginPage.setPassword("Rizwan@123");
+
+		// Clicks the login button.
+		loginPage.clickLoginButton();
+
+		// Get the actual error message if displayed.
+		String actualError = loginPage.getEmailError();
+
+		// Cleared the password field.
+		clearFieldData(loginPage.getInputFieldPassword());
+
+		// Compared the actual and expected results.
+		Assert.assertEquals(actualError, expectedError);
+
+	}
+
+	@Test(priority = 15, enabled = true)
+	public void verifyBlankPasswordLoginFails() {
+
+		// Created local variable to store expected result.
+		String expectedError = errorPasswordRequired;
+
+		// Set the value in email field.
+		loginPage.setEmail("rizwan@convextech.com");
+
+		// Clicks the login button.
+		loginPage.clickLoginButton();
+
+		// Get the actual error message if displayed.
+		String actualError = loginPage.getPasswordError();
+
+		// Cleared the email field.
+		clearFieldData(loginPage.getInputFieldEmail());
+
+		// Compared the actual and expected results.
+		Assert.assertEquals(actualError, expectedError);
 
 	}
 
 	@Test(priority = 16, enabled = false)
-	public void verifyPasswordIsHidden() {
+	public void verifyBlankEmailAndPasswordLoginFails() {
 
+		// Created local variable to store email required error message.
+		String expectedErrorEmail = errorEmailRequired;
+
+		// Created local variable to store password required error message.
+		String expectedErrorPassword = errorPasswordRequired;
+
+		// local variable for actual error.
+		String actualError;
+
+		// Clicks the login button.
+		loginPage.clickLoginButton();
+
+		// Get the email error.
+		actualError = loginPage.getEmailError();
+
+		// Compares the actual and expected results.
+		softAssert.assertEquals(actualError, expectedErrorEmail);
+
+		// Get the password error.
+		actualError = loginPage.getPasswordError();
+
+		// Compares the actual and expected results.
+		softAssert.assertEquals(actualError, expectedErrorPassword);
+
+		// Validates the both asserts.
+		softAssert.assertAll();
+
+	}
+
+	@Test(priority = 17, enabled = true)
+	public void verifyInvalidPasswordLoginFails() {
+
+		// Created local variable to store expected error
+		String expectedError = errorInvalidEmailOrPassword;
+
+		// Set the value in email field.
+		loginPage.setEmail(validRegisteredEmail);
+
+		// Set some random string in password field.
+		loginPage.setPassword(randomStringGenerator());
+
+		// Clicks the login button.
+		loginPage.clickLoginButton();
+
+		// Get the error returned from server.
+		String actualError = loginPage.getPasswordError();
+
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualError, expectedError);
+
+	}
+
+	@Test(priority = 18, enabled = true)
+	public void verifyUnregisteredEmailLoginFails() {
+
+		// Created local variable to store expected error
+		String expectedError = errorAccountNotRegistered;
+
+		// Set the random unregistered email.
+		loginPage.setEmail(randomStringGenerator() + "@gmail.com");
+
+		// Set valid password.
+		loginPage.setPassword(validPassword);
+
+		// Clicks the login button.
+		loginPage.clickLoginButton();
+
+		// Get the error returned from server.
+		String actualError = loginPage.getPasswordError();
+
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualError, expectedError);
+
+	}
+
+	@Test(priority = 19, enabled = true)
+	public void verifyInvalidEmailAndPasswordLoginFails() {
+
+		// Created local variable to store expected error
+		String expectedError = errorAccountNotRegistered;
+
+		// Set the random unregistered email.
+		loginPage.setEmail(randomStringGenerator() + "@gmail.com");
+
+		// Set the random password.
+		loginPage.setPassword(randomNumberGenerator());
+
+		// Clicks the login button.
+		loginPage.clickLoginButton();
+
+		// Get the error returned from server.
+		String actualError = loginPage.getPasswordError();
+
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualError, expectedError);
+
+	}
+
+	@Test(priority = 20, enabled = true)
+	public void verifyMalformedEmailErrorMessage() {
+
+		// Validates the list of invalid email formats.
+		staticInvalidEmailChecker(loginPage.getInputFieldEmail(), loginPage.getbuttonLogin(), loginPage.getEmailError(),
+				errorMalformedEmail);
+
+	}
+
+	@Test(priority = 21, enabled = true)
+	public void verifyEmailErrorIconDisplayed() {
+
+		// Set some invalid format of email.
+		loginPage.setEmail("rizwan123");
+
+		// Clicks the login button.
+		loginPage.clickLoginButton();
+
+		// Focus out email field.
+		// loginPage.getInputFieldEmail().sendKeys(Keys.TAB);
+
+		// Get the result if error icon displayed or not.
+		boolean result = isWebElementDisplayed(loginPage.getIconEmailError());
+
+		// Validate the result.
+		Assert.assertTrue(result);
+
+	}
+
+	@Test(priority = 22, enabled = true)
+	public void verifyPasswordIsHiddenByDefault() {
+
+		// Created local variable to store expected result.
+		String expectedResult = "password";
+
+		// Set the value in password field.
+		loginPage.setPassword("TestPassword");
+
+		// Get the visibility of entered text in password field.
+		String actualResult = loginPage.getPasswordVisibilityStatus();
+
+		// Validate the actual and expected results.
+		Assert.assertEquals(actualResult, expectedResult);
+
+	}
+
+	@Test(priority = 23, enabled = true)
+	public void verifyPasswordIsVisible() {
+
+		// Created local variable to store expected result.
+		String expectedResult = "text";
+
+		// Set the value in password field.
 		loginPage.setPassword("Rizwan123");
+
+		// Click the eye icon on password field.
 		loginPage.clickTogglePasswordButton();
 
-		String currentToggleState = loginPage.getPasswordVisibilityStatus();
+		// Get the visibility of entered text in password field.
+		String actualResult = loginPage.getPasswordVisibilityStatus();
 
-		AssertJUnit.assertEquals(currentToggleState, "password");
+		// Validate the actual and expected results.
+		Assert.assertEquals(actualResult, expectedResult);
 
 	}
 
-	@Test(priority = 17, enabled = false)
-	public void verifyUnRegisteredEmailErrorMessage() {
+	@Test(priority = 24, enabled = true)
+	public void verifyPasswordIsHidden() {
 
-		loginPage.setEmail("rizwan100@convextech.com");
+		// Created local variable to store expected result.
+		String expectedResult = "password";
+
+		// Set the value in password field.
 		loginPage.setPassword("Rizwan123");
-		loginPage.clickLoginButton();
 
-		String currentErrorMessage = loginPage.getInvalidEmailOrPasswordError();
-		AssertJUnit.assertEquals(currentErrorMessage, errorAccountNotRegistered);
+		// Click the eye icon on password field.
+		loginPage.clickTogglePasswordButton();
+
+		// Get the visibility of entered text in password field.
+		String actualResult = loginPage.getPasswordVisibilityStatus();
+
+		// Validate the actual and expected results.
+		Assert.assertEquals(actualResult, expectedResult);
 
 	}
 
-	@Test(priority = 19, enabled = false)
-	public void verifyAccountLocked() {
+	@Test(priority = 25, enabled = true)
+	public void verifyCopyMaskedPassword() {
 
-		loginPage.setEmail("rizwan@convextech.com");
-		for (int i = 1; i < 5; i++) {
-			loginPage.setPassword("Rizwan12345");
-			loginPage.clickLoginButton();
+		// Created local variable to store expected result.
+		String expectedResult = "TestPassword";
+
+		// Created local variable to store actual result.
+		String actualResult;
+
+		// Set the value in password field.
+		loginPage.setPassword(expectedResult);
+
+		// Checks the visibility of text entered in the password field.
+		if (loginPage.getPasswordVisibilityStatus().equals("password")) {
+
+			// Copy the text entered in the password field.
+			actualResult = copyFiedData(loginPage.getInputFieldPassword());
+
+		} else {
+
+			// Click the eye icon on password field.
+			loginPage.clickTogglePasswordButton();
+
+			// Copy the text entered in the password field.
+			actualResult = copyFiedData(loginPage.getInputFieldPassword());
+
 		}
 
-		String currentErrorMessage = loginPage.getInvalidEmailOrPasswordError();
-		AssertJUnit.assertEquals(currentErrorMessage, errorAccountLocked);
+		// Validate the actual and expected results.
+		Assert.assertNotEquals(actualResult, expectedResult);
 
 	}
 
-	/*
-	 * This test case is disabled, due to unknown time set for locked Account. Once
-	 * we know the actual time set until which the account will remain locked we
-	 * will set the actual time and enable the test case.
-	 */
-	@Test(priority = 20, enabled = false)
-	public void verifyAccountLockedTime() throws InterruptedException {
+	@Test(priority = 26, enabled = true)
+	public void verifyCopyRevealedPassword() {
 
-		Thread.sleep(60000);
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan123");
-		loginPage.clickLoginButton();
+		// Created local variable to store expected result.
+		String expectedResult = "TestPassword";
 
-		String currentErrorMessage = loginPage.getInvalidEmailOrPasswordError();
-		AssertJUnit.assertEquals(currentErrorMessage, errorAccountLockedTime);
+		// Created local variable to store actual result.
+		String actualResult;
 
-	}
+		// Set the value in password field.
+		loginPage.setPassword(expectedResult);
 
-	@Test(priority = 21, enabled = false)
-	public void verifyLoginWhileAccountLocked() {
+		// Checks the visibility of text entered in the password field.
+		if (loginPage.getPasswordVisibilityStatus().equals("text")) {
 
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan123");
-		loginPage.clickLoginButton();
+			// Copy the text entered in the password field.
+			actualResult = copyFiedData(loginPage.getInputFieldPassword());
 
-		String currentErrorMessage = loginPage.getInvalidEmailOrPasswordError();
-		AssertJUnit.assertEquals(currentErrorMessage, errorAccountLocked);
+		} else {
 
-	}
+			// Click the eye icon on password field.
+			loginPage.clickTogglePasswordButton();
 
-	/*
-	 * This test case is disabled, due to unknown time set for locked Account. Once
-	 * we know the actual time set until which the account will remain locked we
-	 * will set the actual time and enable the test case.
-	 */
-	@Test(priority = 22, enabled = false)
-	public void verifyLoginAccountUnlocked() {
+			// Copy the text entered in the password field.
+			actualResult = copyFiedData(loginPage.getInputFieldPassword());
 
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan123");
-		loginPage.clickLoginButton();
+		}
 
-		boolean loginSuccess = headerPage.isLoggedIn();
-		Assert.assertTrue(loginSuccess, "Failed to login!");
+		// Validate the actual and expected results.
+		Assert.assertNotEquals(actualResult, expectedResult);
 
 	}
 
-	@Test(priority = 23, enabled = false)
-	public void verifyIsLoginSuccessfull() {
+	@Test(priority = 27, enabled = true)
+	public void verifyMinMaxCharLength() {
 
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan@123");
-		loginPage.clickLoginButton();
+		/*
+		 * Created local variable to store list of actual minimum and maximum character
+		 * length.
+		 */
+		int[] charLength;
 
-		boolean loginStatus = headerPage.isLoggedIn();
-		Assert.assertTrue(loginStatus, "Failed to login!");
+		/*
+		 * Created local variables to separate out and store actual minimum and maximum
+		 * character lengths.
+		 */
+		int minCharLength, maxCharLength;
 
-		verifyLogoutSuccessfull();
+		// Get the actual minimum and maximum character length of email field.
+		charLength = getMinMaxCharacterLength(loginPage.getInputFieldEmail());
 
-	}
+		// Assign the minimum character length.
+		minCharLength = charLength[0];
 
-	@Test(priority = 24, enabled = false)
-	public void verifySubmitLogin() {
+		// Validates the actual and expected results.
+		softAssert.assertEquals(minCharLength, 6);
 
-		headerPage.clickLogin();
+		// Assign the maximum character length.
+		maxCharLength = charLength[1];
 
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan@123");
-		loginPage.submitPassword();
+		// Validates the actual and expected results.
+		softAssert.assertEquals(maxCharLength, 60);
 
-		boolean loginSuccess = headerPage.isLoggedIn();
-		Assert.assertTrue(loginSuccess, "Failed to login!");
-
-		verifyLogoutSuccessfull();
-
-	}
-
-	@Test(priority = 25, enabled = false)
-	public void verifyRedirectionToHomePage() {
-
-		headerPage.clickLogin();
-
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan@123");
-		loginPage.submitPassword();
-
-		AssertJUnit.assertTrue(headerPage.isLoggedIn());
-
-		String currentURL = driver.getCurrentUrl();
-		AssertJUnit.assertEquals(currentURL, baseURL);
-
-	}
-
-	@Test(priority = 26, enabled = false)
-	public void verifyLogoutSuccessfull() {
-
-		headerPage.clickProfile();
-		headerPage.clickProfileMenuOption("Logout");
-
-		boolean loginStatus = headerPage.isLoggedOut();
-		Assert.assertTrue(loginStatus, "Failed to log out!");
-
-	}
-
-	@Test(priority = 27, enabled = false)
-	public void verifyRedirectionToRegistration() {
-
-		headerPage.clickLogin();
-		loginPage.clickRegisterLink();
-
-		String currentURL = driver.getCurrentUrl();
-		AssertJUnit.assertEquals(currentURL, registrationPageURL);
+		// Consolidate the results from both assertions.
+		softAssert.assertAll();
 
 	}
 
 	@Test(priority = 28, enabled = false)
-	public void verifyUserRemainsLoginfterClickingBack() {
+	public void verifyAccountLocked() {
 
-		headerPage.clickLogin();
+		// Created local variable to store the expected error.
+		String expectedError = errorAccountLocked;
 
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan@123");
-		loginPage.submitPassword();
+		// Set the valid registered email in email field.
+		loginPage.setEmail(validRegisteredEmail);
 
-		driver.navigate().back();
-		driver.get(baseURL);
+		// Performs 5 attempt to login.
+		for (int i = 1; i < 5; i++) {
 
-		boolean loginStatus = headerPage.isLoggedIn();
-		Assert.assertTrue(loginStatus, "User logged out!");
+			// Set the invalid password in password field.
+			loginPage.setPassword(randomNumberGenerator());
 
-		verifyLogoutSuccessfull();
+			// Clicks the login button.
+			loginPage.clickLoginButton();
+
+		}
+
+		// Get actual error message returned from server.
+		String actualError = loginPage.getPasswordError();
+
+		// Compares the actual and expected error.
+		Assert.assertEquals(actualError, expectedError);
 
 	}
 
+	/*
+	 * This test case is disabled, due to unknown time set for locked Account. Once
+	 * we know the actual time set until which the account will remain locked we
+	 * will set the actual time and enable the test case.
+	 */
 	@Test(priority = 29, enabled = false)
-	public void verifyUserRemainsLoginAfterClosingBrowser() {
+	public void verifyAccountLockedTime() throws InterruptedException {
 
-		headerPage.clickLogin();
+		// Created local variable to store expected error message.
+		String expectedError = errorAccountLockedTime;
 
-		loginPage.setEmail("rizwan@convextech.com");
-		loginPage.setPassword("Rizwan@123");
-		loginPage.submitPassword();
+		// Added wait for 1 minutes.
+		Thread.sleep(60000);
 
-		AssertJUnit.assertTrue(headerPage.isLoggedIn());
+		// Set valid email in email field.
+		loginPage.setEmail(validRegisteredEmail);
 
-		driver.close();
-		setup();
+		// Set valid password in password field.
+		loginPage.setPassword(validPassword);
 
-		headerPage = new HeaderPage();
-		loginPage = new LoginPage();
+		// Click the login button
+		loginPage.clickLoginButton();
 
-		boolean loginStatus = headerPage.isLoggedOut();
-		Assert.assertTrue(loginStatus, "User is logged In!");
+		// Get actual error message returned from server.
+		String actualError = loginPage.getPasswordError();
+
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualError, expectedError);
 
 	}
 
 	@Test(priority = 30, enabled = false)
-	public void verifyLoginWithGoogle() {
+	public void verifyLoginWhileAccountLocked() {
 
-		headerPage.clickLogin();
+		// Created the local variable to store the expected error.
+		String expectedError = errorAccountLocked;
 
-		// Store the current window handle
-		String parentWindow = driver.getWindowHandle();
+		// Set valid email in email field.
+		loginPage.setEmail(validRegisteredEmail);
 
-		// Perform the click operation that opens new window
-		loginPage.clickGoogleLoginButton();
+		// Set valid password in password in field.
+		loginPage.setPassword(validPassword);
 
-		// Switch to new window opened
-		Set<String> handles = driver.getWindowHandles();
+		// Clicks the login button.
+		loginPage.clickLoginButton();
 
-		for (String windowHandle : handles) {
+		// Get the actual error message.
+		String actualError = loginPage.getPasswordError();
 
-			if (!windowHandle.equals(parentWindow)) {
-
-				driver.switchTo().window(windowHandle);
-
-				// Perform the actions on new window
-				loginPage.setGoogleEmail("rizwan@convextech.com");
-				loginPage.clickNextGoogleEmail();
-				loginPage.setGooglePassword("CyberMart2022");
-				loginPage.clickNextGooglePassword();
-
-				// Close the new window, if that window no more required
-				// driver.close();
-
-			}
-
-		}
-
-		// Switch back to original browser (first window)
-		// driver.switchTo().defaultContent();
-		driver.switchTo().window(parentWindow);
-
-		// Continue with original browser (first window)
-
-		boolean loginStatus = headerPage.isLoggedIn();
-		Assert.assertTrue(loginStatus, "User is logged In!");
-
-		verifyLogoutSuccessfull();
+		// Compares the actual and expected results.
+		Assert.assertEquals(actualError, expectedError);
 
 	}
 
+	/*
+	 * This test case is disabled, due to unknown time set for locked Account. Once
+	 * we know the actual time set until which the account will remain locked we
+	 * will set the actual time and enable the test case.
+	 */
 	@Test(priority = 31, enabled = false)
-	public void verifyLoginWithFacebook() {
+	public void verifyLoginAccountUnlocked() {
 
-		headerPage.clickLogin();
+		// Created local variable to store expected message.
+		String expectedMessage = messageLoginSuccess;
 
-		// Store the current window handle
-		String parentWindow = driver.getWindowHandle();
+		// Set the valid email in the email field.
+		loginPage.setEmail(validRegisteredEmail);
 
-		// Perform the click operation that opens new window
-		loginPage.clickFacebookLoginButton();
+		// Set the valid password in the password field.
+		loginPage.setPassword(validPassword);
 
-		// Switch to new window opened
-		Set<String> handles = driver.getWindowHandles();
+		// Clicks the login button.
+		loginPage.clickLoginButton();
 
-		for (String windowHandle : handles) {
+		// Get the actual message on successful login.
+		String actualMessage = loginPage.getToastMessageText();
 
-			if (!windowHandle.equals(parentWindow)) {
-
-				driver.switchTo().window(windowHandle);
-
-				// Perform the actions on new window
-				loginPage.setFacebookEmail("rizwan@convextech.com");
-				loginPage.setFacebookPassword("Rizwan@123");
-				loginPage.clickLoginFacebook();
-
-				// Close the new window, if that window no more required
-				// driver.close();
-
-			}
-
-		}
-
-		// Switch back to original browser (first window)
-		// driver.switchTo().defaultContent();
-		driver.switchTo().window(parentWindow);
-
-		// Continue with original browser (first window)
-
-		boolean loginStatus = headerPage.isLoggedIn();
-		Assert.assertTrue(loginStatus, "User is logged In!");
+		// Compares the actual and expected message.
+		Assert.assertEquals(actualMessage, expectedMessage);
 
 	}
 
-	@Test(priority = 32, enabled = false)
-	public void verifyIsLoginRegisterLinksDisplaying() {
+	@Test(priority = 32, enabled = true)
+	public void verifyIsLoginSuccessfull() {
 
-		// boolean result;
+		// Created local variable to store expected message.
+		String expectedMessage = messageLoginSuccess;
 
-		// result = isWebElementDisplayed(headerPage.getLinkLogin());
-		// AssertJUnit.assertFalse(result);
+		// Checks if the user is login already.
+		if (headerPage.isLoggedIn()) {
 
-		// result = isWebElementDisplayed(headerPage.getLinkRegister());
-		// AssertJUnit.assertFalse(result);
+			// Logout user from system.
+			verifyLogoutSuccessfull();
 
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Clicks the login button.
+			loginPage.clickLoginButton();
+
+		} else {
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Clicks the login button.
+			loginPage.clickLoginButton();
+
+		}
+
+		// Added wait for the visibility of toast message.
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(loginPage.getToast()));
+
+		// Get the actual message on successful login.
+		String actualMessage = loginPage.getToastMessageText();
+
+		// Added wait for the invisibility of toast message.
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.invisibilityOf(loginPage.getToast()));
+
+		// Compares the actual and expected message.
+		Assert.assertEquals(actualMessage, expectedMessage);
+
+	}
+
+	@Test(priority = 33, enabled = true)
+	public void verifySubmitLogin() {
+
+		// Created local variable to store expected message.
+		String expectedMessage = messageLoginSuccess;
+
+		// Checks if the user is login already.
+		if (headerPage.isLoggedIn()) {
+
+			// Logout user from system.
+			verifyLogoutSuccessfull();
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Sends the Submit request.
+			loginPage.submitPassword();
+
+		} else {
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Sends the Submit request.
+			loginPage.submitPassword();
+
+		}
+
+		// Added wait for the visibility of toast message.
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(loginPage.getToast()));
+
+		// Get the actual message on successful login.
+		String actualMessage = loginPage.getToastMessageText();
+
+		// Added wait for the invisibility of toast message.
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.invisibilityOf(loginPage.getToast()));
+
+		// Compares the actual and expected message.
+		Assert.assertEquals(actualMessage, expectedMessage);
+
+	}
+
+	@Test(priority = 34, enabled = true)
+	public void verifyRedirectionToHomePage() {
+
+		// Created local variable to store expected URL.
+		String expectedURL = baseURL + "/dashboard";
+
+		// Checks if the user is login already.
+		if (headerPage.isLoggedIn()) {
+
+			// Logout user from system.
+			verifyLogoutSuccessfull();
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Sends the Submit request.
+			loginPage.submitPassword();
+
+		} else {
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Sends the Submit request.
+			loginPage.submitPassword();
+
+		}
+
+		// Checks the profile icon displayed and if the user is login successfully.
+		Assert.assertTrue(headerPage.isLoggedIn());
+
+		// Get the current page URL.
+		String actualURL = driver.getCurrentUrl();
+
+		// Compares the actual and expected URl.
+		Assert.assertEquals(actualURL, expectedURL);
+
+	}
+
+	@Test(priority = 35, enabled = true)
+	public void verifyUserRemainsLoginfterClickingBack() {
+
+		// Checks if the user is login already.
+		if (headerPage.isLoggedIn()) {
+
+			// Logout user from system.
+			verifyLogoutSuccessfull();
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Sends the Submit request.
+			loginPage.submitPassword();
+
+		} else {
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Sends the Submit request.
+			loginPage.submitPassword();
+
+		}
+
+		// Clicks the browser back button.
+		driver.navigate().back();
+
+		// Open the URL in the current window of the browser.
+		driver.get(baseURL);
+
+		// Get the current login status.
+		boolean loginStatus = headerPage.isLoggedIn();
+
+		// Validates if the user is still login or logged out.
+		Assert.assertTrue(loginStatus, "User logged out!");
+
+	}
+
+	@Test(priority = 36, enabled = true)
+	public void verifyLogoutSuccessfull() {
+
+		// Created local variable to store the expected message.
+		String expectedMessage = messageLogoutSuccess;
+
+		// Checks if the user is login already.
+		if (headerPage.isLoggedIn()) {
+
+			// Clicks the profile button on header.
+			headerPage.clickProfile();
+
+			// Selects the logout option from the drop down.
+			dropdownOptionSelector(headerPage.getProfileDDMenu(), "Logout");
+
+		} else {
+
+			// Set the valid email in the email field.
+			loginPage.setEmail(validRegisteredEmail);
+
+			// Set the valid password in the password field.
+			loginPage.setPassword(validPassword);
+
+			// Sends the Submit request.
+			loginPage.submitPassword();
+
+			// Clicks the profile button on header.
+			headerPage.clickProfile();
+
+			// Selects the logout option from the drop down.
+			dropdownOptionSelector(headerPage.getProfileDDMenu(), "Logout");
+
+		}
+
+		// Added wait for the visibility of toast message.
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(loginPage.getToast()));
+
+		// Get the actual message on successful login.
+		String actualMessage = loginPage.getToastMessageText();
+
+		// Added wait for the invisibility of toast message.
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.invisibilityOf(loginPage.getToast()));
+
+		// Compares the actual and expected message.
+		Assert.assertEquals(actualMessage, expectedMessage);
+
+	}
+
+	@Test(priority = 37, enabled = true)
+	private void verifyAccountAccessByClickingBackAfterLogout() {
+
+		// Created local variable assigned expected URL.
+		String expectedURL = loginPageURL;
+
+		// Created local variable to store actual URL.
+		String actualURL;
+
+		// Checks if the user is login already.
+		if (headerPage.isLoggedIn()) {
+
+			// logout user from the system.
+			verifyLogoutSuccessfull();
+
+			// Clicks the browser back key.
+			driver.navigate().back();
+
+			// Get the current page URL.
+			actualURL = driver.getCurrentUrl();
+
+			// Compares actual and expected URL's.
+			softAssert.assertEquals(actualURL, expectedURL);
+
+			// Opens the dashboard URL in the browser.
+			driver.get(baseURL + "/dashboard");
+
+			// Get the current page URL.
+			actualURL = driver.getCurrentUrl();
+
+			// Compares actual and expected URL's.
+			softAssert.assertEquals(actualURL, expectedURL);
+
+		} else {
+
+			// login user into the system.
+			verifyIsLoginSuccessfull();
+
+			// logout user from the system.
+			verifyLogoutSuccessfull();
+
+			// Clicks the browser back key.
+			driver.navigate().back();
+
+			// Get the current page URL.
+			actualURL = driver.getCurrentUrl();
+
+			// Compares actual and expected URL's.
+			softAssert.assertEquals(actualURL, expectedURL);
+
+			// Opens the dashboard URL in the browser.
+			driver.get(baseURL + "/dashboard");
+
+			// Get the current page URL.
+			actualURL = driver.getCurrentUrl();
+
+			// Compares actual and expected URL's.
+			softAssert.assertEquals(actualURL, expectedURL);
+
+		}
+
+		// Validates both assert statements.
 		softAssert.assertAll();
+
+	}
+
+	@Test(priority = 38, enabled = true)
+	public void verifyLoginWithDifferentCredentialsAtSameBrowser() {
+
+		// Created local variable for actual result.
+		boolean result = false;
+
+		if (headerPage.isLoggedIn()) {
+			// Store the current window handle
+			String parentWindow = driver.getWindowHandle();
+
+			// Opens new tab.
+			jsOpenNewTab();
+
+			Set<String> windowHandles = driver.getWindowHandles();
+
+			for (String window : windowHandles) {
+
+				if (!window.equals(parentWindow)) {
+
+					driver.switchTo().window(window);
+
+					// Perform the actions on new window
+					driver.get(loginPageURL);
+
+					result = myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(baseURL + "/dashboard"));
+
+				}
+			}
+
+			// Close the new window, if that window no more required
+			driver.close();
+
+			// Switch back to original browser (first window)
+			// driver.switchTo().defaultContent();
+			driver.switchTo().window(parentWindow);
+
+		} else {
+
+			// Login user to the system.
+			verifyIsLoginSuccessfull();
+
+			// Store the current window handle
+			String parentWindow = driver.getWindowHandle();
+
+			// Opens new tab.
+			jsOpenNewTab();
+
+			Set<String> windowHandles = driver.getWindowHandles();
+
+			for (String window : windowHandles) {
+
+				if (!window.equals(parentWindow)) {
+
+					driver.switchTo().window(window);
+
+					// Perform the actions on new window
+					driver.get(loginPageURL);
+
+					result = myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(baseURL + "/dashboard"));
+
+				}
+			}
+
+			// Close the new window, if that window no more required
+			driver.close();
+
+			// Switch back to original browser (first window)
+			// driver.switchTo().defaultContent();
+			driver.switchTo().window(parentWindow);
+		}
+
+		// Validate the final result.
+		Assert.assertTrue(result);
+
+	}
+
+	@Test(priority = 39, enabled = false)
+	public void verifySignInWithGoogleWhenAccountNotLoggedInBrowser() {
+
+		// Checks if the user is login to the system.
+		if (headerPage.isLoggedIn()) {
+
+			// Logout user from the system.
+			verifyLogoutSuccessfull();
+
+			// Login user with gmail account.
+			loginPage.loginWithGoogle();
+
+		} else {
+
+			// Login user with gmail account.
+			loginPage.loginWithGoogle();
+
+		}
+
+	}
+
+	@Test(priority = 40, enabled = false)
+	public void verifySignInWithFacebookWhenAccountNotLoggedInBrowser() {
+
+		if (headerPage.isLoggedIn()) {
+
+			// Logout user from the system.
+			verifyLogoutSuccessfull();
+
+			// Login user with facebook.
+			loginPage.loginWithFacebook();
+
+		} else {
+
+			// Login user with facebook.
+			loginPage.loginWithFacebook();
+
+		}
+
+	}
+
+	@Test(priority = 41, enabled = true)
+	public void verifyUserRemainsLoginAfterClosingBrowser() {
+
+		if (headerPage.isLoggedIn()) {
+
+			driver.close();
+			setup();
+
+			headerPage = new HeaderPage();
+			loginPage = new LoginPage();
+
+			String currentURL = driver.getCurrentUrl();
+			Assert.assertEquals(currentURL, baseURL + "/dashboard");
+
+		} else {
+
+			verifyIsLoginSuccessfull();
+
+			driver.close();
+			setup();
+
+			headerPage = new HeaderPage();
+			loginPage = new LoginPage();
+
+			String currentURL = driver.getCurrentUrl();
+			Assert.assertEquals(currentURL, baseURL + "/dashboard");
+
+		}
 
 	}
 
