@@ -27,22 +27,24 @@ public class UserTypesTest extends BaseClass {
 	public static final String loginPageURL = "https://admin.cybermart.com/auth/login";
 	public static final String forgotPasswordPageTitle = "Cyber Mart";
 	public static String actualErrorAccountNotRegistered;
-
+	public static final String validRegisteredEmail = "airas.mangotech@gmail.com";
+	public static final String validPassword = "123456";
 
 	@Test(priority = 1, enabled = true)
 	public void verifyIsLoginSuccessfull() {
 
 		loginPage = new LoginPage();
 		forgotPasswordPage = new ForgotPasswordPage();
+		headerPage = new HeaderPage();
 
-		loginPage.loginUserSuccessfull();
+		loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+
+		Assert.assertTrue(headerPage.isLoggedIn());
 
 	}
 
 	@Test(priority = 2, enabled = true)
 	public void verifyUserTypesPageLoaded() {
-
-		headerPage = new HeaderPage();
 
 		headerPage.clickAtSystemTab();
 		headerPage.clickAtUserTypesTab();
@@ -101,14 +103,14 @@ public class UserTypesTest extends BaseClass {
 	}
 
 	@Test(priority = 8, enabled = true)
-	public void verifyMalformedEmailErrorMessage(){
+	public void verifyMalformedEmailErrorMessage() {
 
 		forgotPasswordPage.enterListOfStaticInvalidEmails();
 
 	}
 
 	@Test(priority = 9, enabled = true)
-	public void verifyUnRegisteredEmailErrorMessage(){
+	public void verifyUnRegisteredEmailErrorMessage() {
 
 		for (int i = 0; i < 3; i++) {
 
@@ -124,7 +126,7 @@ public class UserTypesTest extends BaseClass {
 	}
 
 	@Test(priority = 10, enabled = true)
-	public void verifyBackButtonFunctionality(){
+	public void verifyBackButtonFunctionality() {
 
 		forgotPasswordPage.clickBackButton();
 
@@ -133,7 +135,7 @@ public class UserTypesTest extends BaseClass {
 	}
 
 	@Test(priority = 11, enabled = true)
-	public void verifyForgetImageDisplayed(){
+	public void verifyForgetImageDisplayed() {
 
 		Assert.assertTrue(forgotPasswordPage.getPageImage().isDisplayed(), "Image not displayed");
 

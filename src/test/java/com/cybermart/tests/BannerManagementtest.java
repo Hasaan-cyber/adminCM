@@ -7,7 +7,6 @@ import java.util.Locale;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import com.cybermart.pages.BannerManagementPage;
 import com.cybermart.pages.HeaderPage;
@@ -15,9 +14,10 @@ import com.cybermart.pages.LoginPage;
 import com.github.javafaker.Faker;
 
 public class BannerManagementtest extends BaseClass {
+
 	LoginPage loginPage;
 	HeaderPage headerPage;
-	SoftAssert softAssert = new SoftAssert();
+
 	BannerManagementPage objbanner;
 	Faker faker = new Faker(new Locale("en"));
 
@@ -29,21 +29,24 @@ public class BannerManagementtest extends BaseClass {
 	public static final String loginPageURL = "https://admin.cybermart.com/auth/login";
 	public static final String forgotPasswordPageTitle = "Cyber Mart";
 	public static String actualErrorAccountNotRegistered;
+	public static final String validRegisteredEmail = "airas.mangotech@gmail.com";
+	public static final String validPassword = "123456";
 
 	@Test(priority = 1, enabled = true)
 	public void verifyIsLoginSuccessfull() {
 
 		loginPage = new LoginPage();
+		headerPage = new HeaderPage();
+		objbanner = new BannerManagementPage();
 
-		loginPage.loginUserSuccessfull();
+		loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+
+		Assert.assertTrue(headerPage.isLoggedIn());
 
 	}
 
 	@Test(priority = 2, enabled = true)
 	public void verifyUserTypesPageLoaded() {
-
-		headerPage = new HeaderPage();
-		objbanner = new BannerManagementPage();
 
 		headerPage.clickAtSystemTab();
 		objbanner.bannerTypeclick();

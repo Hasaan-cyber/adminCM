@@ -225,5 +225,15 @@ public class HeaderPage extends BaseClass {
 		return isWebElementDisplayed(buttonProfile);
 
 	}
+	
+	public void logoutUser() {
+
+		// Clicks the profile button on header.
+		clickProfile();
+
+		// Selects the logout option from the drop down.
+		dropdownOptionSelector(getProfileDDMenu(), "Logout");
+
+	}
 
 }

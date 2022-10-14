@@ -400,4 +400,20 @@ public class LoginPage extends BaseClass {
 
 	}
 
+	public void loginUserBySubmit(String email, String password) {
+
+		inputFieldEmail.sendKeys(email);
+		inputFieldPassword.sendKeys(password);
+		inputFieldPassword.submit();
+
+	}
+
+	public void loginUserByButtonClick(String email, String password) {
+
+		inputFieldEmail.sendKeys(email);
+		inputFieldPassword.sendKeys(password);
+		buttonLogin.click();
+
+	}
+
 }

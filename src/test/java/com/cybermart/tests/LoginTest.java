@@ -313,14 +313,8 @@ public class LoginTest extends BaseClass {
 		// Created local variable to store expected error
 		String expectedError = errorInvalidEmailOrPassword;
 
-		// Set the value in email field.
-		loginPage.setEmail(validRegisteredEmail);
-
-		// Set some random string in password field.
-		loginPage.setPassword(randomStringGenerator());
-
-		// Clicks the login button.
-		loginPage.clickLoginButton();
+		// Calls the login method to login user by clicking login button.
+		loginPage.loginUserByButtonClick(validRegisteredEmail, randomStringGenerator());
 
 		// Get the error returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -336,14 +330,8 @@ public class LoginTest extends BaseClass {
 		// Created local variable to store expected error
 		String expectedError = errorAccountNotRegistered;
 
-		// Set the random unregistered email.
-		loginPage.setEmail(randomStringGenerator() + "@gmail.com");
-
-		// Set valid password.
-		loginPage.setPassword(validPassword);
-
-		// Clicks the login button.
-		loginPage.clickLoginButton();
+		// Calls the login method to login user by clicking login button.
+		loginPage.loginUserByButtonClick(randomStringGenerator() + "@gmail.com", validPassword);
 
 		// Get the error returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -359,14 +347,8 @@ public class LoginTest extends BaseClass {
 		// Created local variable to store expected error
 		String expectedError = errorAccountNotRegistered;
 
-		// Set the random unregistered email.
-		loginPage.setEmail(randomStringGenerator() + "@gmail.com");
-
-		// Set the random password.
-		loginPage.setPassword(randomNumberGenerator());
-
-		// Clicks the login button.
-		loginPage.clickLoginButton();
+		// Calls the login method to login user by clicking login button.
+		loginPage.loginUserByButtonClick(randomStringGenerator() + "@gmail.com", randomNumberGenerator());
 
 		// Get the error returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -605,14 +587,8 @@ public class LoginTest extends BaseClass {
 		// Added wait for 1 minutes.
 		Thread.sleep(60000);
 
-		// Set valid email in email field.
-		loginPage.setEmail(validRegisteredEmail);
-
-		// Set valid password in password field.
-		loginPage.setPassword(validPassword);
-
-		// Click the login button
-		loginPage.clickLoginButton();
+		// Calls the login method to login user by clicking login button.
+		loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
 
 		// Get actual error message returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -628,14 +604,8 @@ public class LoginTest extends BaseClass {
 		// Created the local variable to store the expected error.
 		String expectedError = errorAccountLocked;
 
-		// Set valid email in email field.
-		loginPage.setEmail(validRegisteredEmail);
-
-		// Set valid password in password in field.
-		loginPage.setPassword(validPassword);
-
-		// Clicks the login button.
-		loginPage.clickLoginButton();
+		// Calls the login method to login user by clicking login button.
+		loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
 
 		// Get the actual error message.
 		String actualError = loginPage.getPasswordError();
@@ -656,14 +626,8 @@ public class LoginTest extends BaseClass {
 		// Created local variable to store expected message.
 		String expectedMessage = messageLoginSuccess;
 
-		// Set the valid email in the email field.
-		loginPage.setEmail(validRegisteredEmail);
-
-		// Set the valid password in the password field.
-		loginPage.setPassword(validPassword);
-
-		// Clicks the login button.
-		loginPage.clickLoginButton();
+		// Calls the login method to login user by clicking login button.
+		loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
 
 		// Get the actual message on successful login.
 		String actualMessage = loginPage.getToastMessageText();
@@ -685,25 +649,13 @@ public class LoginTest extends BaseClass {
 			// Logout user from system.
 			verifyLogoutSuccessfull();
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Clicks the login button.
-			loginPage.clickLoginButton();
+			// Calls the login method to login user by clicking login button.
+			loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
 
 		} else {
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Clicks the login button.
-			loginPage.clickLoginButton();
+			// Calls the login method to login user by clicking login button.
+			loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
 
 		}
 
@@ -733,25 +685,13 @@ public class LoginTest extends BaseClass {
 			// Logout user from system.
 			verifyLogoutSuccessfull();
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Sends the Submit request.
-			loginPage.submitPassword();
+			// Calls the login method to login user by clicking Enter key.
+			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
 		} else {
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Sends the Submit request.
-			loginPage.submitPassword();
+			// Calls the login method to login user by clicking Enter key.
+			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
 		}
 
@@ -781,25 +721,13 @@ public class LoginTest extends BaseClass {
 			// Logout user from system.
 			verifyLogoutSuccessfull();
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Sends the Submit request.
-			loginPage.submitPassword();
+			// Calls the login method to login user by clicking Enter key.
+			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
 		} else {
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Sends the Submit request.
-			loginPage.submitPassword();
+			// Calls the login method to login user by clicking Enter key.
+			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
 		}
 
@@ -823,25 +751,13 @@ public class LoginTest extends BaseClass {
 			// Logout user from system.
 			verifyLogoutSuccessfull();
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Sends the Submit request.
-			loginPage.submitPassword();
+			// Calls the login method to login user by clicking Enter key.
+			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
 		} else {
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
-
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Sends the Submit request.
-			loginPage.submitPassword();
+			// Calls the login method to login user by clicking Enter key.
+			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
 		}
 
@@ -868,28 +784,16 @@ public class LoginTest extends BaseClass {
 		// Checks if the user is login already.
 		if (headerPage.isLoggedIn()) {
 
-			// Clicks the profile button on header.
-			headerPage.clickProfile();
-
-			// Selects the logout option from the drop down.
-			dropdownOptionSelector(headerPage.getProfileDDMenu(), "Logout");
+			// Logout user from the system.
+			headerPage.logoutUser();
 
 		} else {
 
-			// Set the valid email in the email field.
-			loginPage.setEmail(validRegisteredEmail);
+			// Calls the login method to login user by clicking Enter key.
+			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
-			// Set the valid password in the password field.
-			loginPage.setPassword(validPassword);
-
-			// Sends the Submit request.
-			loginPage.submitPassword();
-
-			// Clicks the profile button on header.
-			headerPage.clickProfile();
-
-			// Selects the logout option from the drop down.
-			dropdownOptionSelector(headerPage.getProfileDDMenu(), "Logout");
+			// Logout user from the system.
+			headerPage.logoutUser();
 
 		}
 
