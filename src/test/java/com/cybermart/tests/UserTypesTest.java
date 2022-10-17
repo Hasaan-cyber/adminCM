@@ -74,7 +74,7 @@ public class UserTypesTest extends BaseClass {
 		Assert.assertEquals(pageHeading, "Forget Password");
 
 	}
-
+/*
 	@Test(priority = 5, enabled = true)
 	public void verifyEmailPlaceholder() {
 
@@ -139,5 +139,5 @@ public class UserTypesTest extends BaseClass {
 
 		Assert.assertTrue(forgotPasswordPage.getPageImage().isDisplayed(), "Image not displayed");
 
-	}
+	}*/
 }
