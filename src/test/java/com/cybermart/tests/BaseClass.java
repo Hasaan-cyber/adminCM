@@ -373,7 +373,7 @@ public class BaseClass {
 
 	}
 
-	public void dropdownOptionSelector(List<WebElement> listOfWebElements, String option) {
+	public void listItemSelector(List<WebElement> listOfWebElements, String option) {
 
 		for (WebElement element : listOfWebElements) {
 
