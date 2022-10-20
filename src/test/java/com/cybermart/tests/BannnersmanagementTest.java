@@ -1,4 +1,4 @@
-package com.cybermart.tests;
+ package com.cybermart.tests;
 import static org.testng.Assert.assertEquals;
 
 import java.util.Locale;
@@ -58,7 +58,7 @@ public class BannnersmanagementTest extends BaseClass{
 		headerPage.clickAtSystemTab();
 		objbanner.bannerTypeclick();
 
-		//Assert.assertTrue(jsPageLoadingStatus());
+		Assert.assertTrue(jsPageLoadingStatus());
 
 	}
 
@@ -86,10 +86,10 @@ public class BannnersmanagementTest extends BaseClass{
 		String currentError;
 		objbanner.clickSavBtn();
 		currentError = objbanner.getTypeError();
-		assertEquals(currentError, "Please enter type.");
+		assertEquals(currentError, "Please select destination type.");
 
 		currentError = objbanner.getNameError();
-		assertEquals(currentError, "Please enter the name.");
+		assertEquals(currentError, "Please select banner type.");
 
 	}
 
@@ -127,7 +127,7 @@ public class BannnersmanagementTest extends BaseClass{
 
 	@Test(priority = 8, enabled = true)
 	public void MultipleCheckBoxes() {
-		objbanner.selectingAllChecks();
+		objbanner.selectingmultipleChecks();
 	}
 	
 	@Test(priority = 9, enabled = true)

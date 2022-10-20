@@ -759,7 +759,7 @@ public class LoginTest extends BaseClass {
 			// Calls the login method to login user by clicking Enter key.
 			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
-		}
+		} 
 
 		// Clicks the browser back button.
 		driver.navigate().back();

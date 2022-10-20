@@ -181,7 +181,7 @@ public class BannerManagementPage extends BaseClass {
 		}
 	}
 
-	public void selectingAllChecks() {
+	public void selectingmultipleChecks() {
 		List<WebElement> checkboxes = driver.findElements(By.xpath("//input[@type = 'checkbox']"));
 		for (int i = 1; i < 3; i++) {
 			checkboxes.get(i).click();
@@ -200,7 +200,7 @@ public class BannerManagementPage extends BaseClass {
 				break;
 
 			}
-			//break;
+	
 		}
 
 	}
@@ -233,6 +233,10 @@ public class BannerManagementPage extends BaseClass {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void clickOnDelIcon() {
+		
 	}
 
 	// ending bracket
