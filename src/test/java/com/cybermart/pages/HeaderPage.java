@@ -67,6 +67,21 @@ public class HeaderPage extends BaseClass {
 
 	@FindBy(xpath = "//*[@id=\"topbar_main\"]/div/div[3]/div/div[1]/button")
 	WebElement btnShoppingCart;
+	
+	@FindBy(css = ".MuiBreadcrumbs-ol.muiltr-nhb8h9")
+	WebElement pageBreadCrumbs;
+	
+	@FindBy(xpath = "//div[@class='MuiBox-root muiltr-5vb4lz']")
+	WebElement pageHeading;
+	
+	@FindBy(xpath = "//*[contains(@class,'MuiButtonBase-root muiltr-1obumc')]")
+	List<WebElement> listOfPageMainTabsAtTop;
+	
+	@FindBy(xpath = "//*[contains(@class,'MuiButtonBase-root muiltr-43znmj')]")
+	List<WebElement> listOfPageSubTabsAtTop;
+	
+	
+	
 
 	public WebElement getButtonProfile() {
 
@@ -91,6 +106,30 @@ public class HeaderPage extends BaseClass {
 	public void clickAtUserTypesTab() {
 
 		tabUserTypes.click();
+
+	}
+	
+	public String getPageHeadingText() {
+
+		return pageHeading.getText();
+
+	}
+	
+	public WebElement getPageMainTabAtTop(int num) {
+		
+		return listOfPageMainTabsAtTop.get(num);
+		
+	}
+	
+	public WebElement getPageSubTabAtTop(int num) {
+		
+		return listOfPageSubTabsAtTop.get(num);
+		
+	}
+	
+	public String copyBreadcrumbsText() {
+
+		return pageBreadCrumbs.getText().replace("\n", " > ");
 
 	}
 

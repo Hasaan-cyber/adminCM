@@ -52,7 +52,7 @@ public class BaseClass {
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver();
 				driver.get(baseURL);
-				driver.manage().window().maximize();
+//				driver.manage().window().maximize();
 			} else if (browser.equalsIgnoreCase("firefox")) {
 				driver = new FirefoxDriver();
 				driver.get(baseURL);
@@ -275,12 +275,11 @@ public class BaseClass {
 
 			buttonSubmit.click();
 
-			softAssert.assertEquals(actualError, expectedError);
+			Assert.assertEquals(actualError, expectedError);
 
 		}
 
 		emailField.clear();
-		softAssert.assertAll();
 
 	}
 
@@ -355,8 +354,6 @@ public class BaseClass {
 			}
 		}
 
-		softAssert.assertAll();
-
 	}
 
 	public boolean isWebElementDisplayed(WebElement element) {
@@ -391,7 +388,7 @@ public class BaseClass {
 	@AfterClass
 	public void tearDown() {
 
-		driver.quit();
+//		driver.quit();
 
 	}
 }

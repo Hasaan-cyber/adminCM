@@ -15,7 +15,7 @@ public class ForgotPasswordTest extends BaseClass {
 
 	ForgotPasswordPage forgotPasswordPage;
 	LoginPage loginPage;
-	SoftAssert softAssert = new SoftAssert();
+//	SoftAssert softAssert = new SoftAssert();
 
 	public static final String expectedEmailRequiredError = "Please enter the email.";
 	public static final String expectedMalformedEmailError = "Email is invalid.";

@@ -30,7 +30,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
-		dropdownOptionSelector(sideNavigationMenu.getListOfMainModules(), "Market Place");
+		dropdownOptionSelector(sideNavigationMenu.clickAtMarketplaceModule(), "Market Place");
 
 		/*
 		 * Using the jsPageLoadingStatus method of BaseClass validates if the page is

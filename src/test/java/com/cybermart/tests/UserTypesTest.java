@@ -70,7 +70,7 @@ public class UserTypesTest extends BaseClass {
 	@Test(priority = 4, enabled = true)
 	public void verifyForgotPasswordPageHeadingDisplayed() {
 
-		String pageHeading = forgotPasswordPage.getPageHeadingText();
+		String pageHeading = headerPage.getPageHeadingText();
 		Assert.assertEquals(pageHeading, "Forget Password");
 
 	}
