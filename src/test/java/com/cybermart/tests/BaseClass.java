@@ -70,6 +70,7 @@ public class BaseClass {
 
 			jsExecutor = (JavascriptExecutor) driver;
 			softAssert = new SoftAssert();
+			strings = new StringsFileReader();
 
 		} catch (Exception e) {
 

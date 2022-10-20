@@ -2,13 +2,10 @@ package com.cybermart.tests;
 
 import java.time.Duration;
 
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import com.cybermart.pages.ForgotPasswordPage;
 import com.cybermart.pages.HeaderPage;
 import com.cybermart.pages.LoginPage;
 import com.cybermart.pages.ManageBrandsPage;
@@ -24,7 +21,6 @@ public class ManageBrandsTest extends BaseClass {
 	ManageBrandsPage manageBrandsPage;
 	TableActions tableActions;
 	MarketPlacePage marketPlacePage;
-
 
 	public static final String manageBrandsPageURL = "https://admin.cybermart.com/market-place/manage-brands/all-brands";
 	public static final String addNewBrandPageURL = "https://admin.cybermart.com/market-place/manage-brands/all-brands/add-brand";
@@ -63,7 +59,7 @@ public class ManageBrandsTest extends BaseClass {
 	public void verifyManageBrandsPageLoaded() {
 
 		listItemSelector(sideNavigationMenu.getListOfMainModules(), "Market Place");
-		
+
 		listItemSelector(marketPlacePage.getListOfModules(), "Manage Brands");
 
 		Assert.assertTrue(jsPageLoadingStatus(), "ERROR! All Brands Page Did Not Load Successfully.");

@@ -1,7 +1,6 @@
 package com.cybermart.pages;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Locale;
 
 import org.openqa.selenium.WebElement;

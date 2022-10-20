@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import com.cybermart.pages.ForgotPasswordPage;
 import com.cybermart.pages.LoginPage;
@@ -25,7 +24,6 @@ public class ForgotPasswordTest extends BaseClass {
 	public static final String loginPageURL = "https://admin.cybermart.com/auth/login";
 	public static final String forgotPasswordPageTitle = "Cyber Mart";
 	public static String actualErrorAccountNotRegistered;
-
 
 	@Test(priority = 1, enabled = true)
 	public void verifyForgotPasswordPageLoaded() {
@@ -88,14 +86,14 @@ public class ForgotPasswordTest extends BaseClass {
 	}
 
 	@Test(priority = 8, enabled = true)
-	public void verifyMalformedEmailErrorMessage(){
+	public void verifyMalformedEmailErrorMessage() {
 
 		forgotPasswordPage.enterListOfStaticInvalidEmails();
 
 	}
 
 	@Test(priority = 9, enabled = true)
-	public void verifyUnRegisteredEmailErrorMessage(){
+	public void verifyUnRegisteredEmailErrorMessage() {
 
 		for (int i = 0; i < 3; i++) {
 
@@ -111,7 +109,7 @@ public class ForgotPasswordTest extends BaseClass {
 	}
 
 	@Test(priority = 10, enabled = true)
-	public void verifyBackButtonFunctionality(){
+	public void verifyBackButtonFunctionality() {
 
 		forgotPasswordPage.clickBackButton();
 
@@ -120,7 +118,7 @@ public class ForgotPasswordTest extends BaseClass {
 	}
 
 	@Test(priority = 11, enabled = true)
-	public void verifyForgetImageDisplayed(){
+	public void verifyForgetImageDisplayed() {
 
 		Assert.assertTrue(forgotPasswordPage.getPageImage().isDisplayed(), "Image not displayed");
 
