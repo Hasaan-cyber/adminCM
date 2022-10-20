@@ -271,7 +271,7 @@ public class HeaderPage extends BaseClass {
 		clickProfile();
 
 		// Selects the logout option from the drop down.
-		dropdownOptionSelector(getProfileDDMenu(), "Logout");
+		listItemSelector(getProfileDDMenu(), "Logout");
 
 	}
 

@@ -3,9 +3,7 @@ package com.cybermart.pages;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 
 import com.cybermart.tests.BaseClass;
 
@@ -17,22 +15,41 @@ public class SideNavigationMenu extends BaseClass {
 
 	}
 
-	@FindBy(xpath = "//*[contains(@class,'MuiListItemButton-root MuiListItemButton-gutters')]")
+	@FindBy(xpath = "//div[@class = 'MuiBox-root muiltr-1r9e2co']/div[1]")
+	private WebElement buttonDashboard;
+
+	@FindBy(xpath = "//div[@class = 'MuiBox-root muiltr-1r9e2co']/div[2]")
+	private WebElement buttonSettings;
+
+	@FindBy(xpath = "//div[@class = 'MuiBox-root muiltr-1r9e2co']/div[3]")
+	private WebElement buttonMarketPlace;
+
+	// @FindBy(xpath = "//div[@class = 'MuiBox-root muiltr-1r9e2co']")
+	@FindBy(xpath = "//div[contains(@class, 'MuiListItemButton-root MuiListItemButton-gutters')]")
 	List<WebElement> listOfMainModules;
-	
-	@FindBy(xpath = "//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-4 MuiGrid-grid-xl-3 muiltr-1rs68s8']")
-	List<WebElement> listOfMarketplaceModules;
 
-	public void clickAtMarketplaceModule() {
+	public List<WebElement> getListOfMainModules() {
 
-		listOfMainModules.get(2).click();
-		
+		return listOfMainModules;
+
 	}
-	
-	public void clickAtManageBrandsSubModule() {
 
-		listOfMarketplaceModules.get(2).click();
-		
+	public WebElement getButtonDashboard() {
+
+		return buttonDashboard;
+
+	}
+
+	public WebElement getButtonSettings() {
+
+		return buttonSettings;
+
+	}
+
+	public WebElement getButtonMarketPlace() {
+
+		return buttonMarketPlace;
+
 	}
 
 }

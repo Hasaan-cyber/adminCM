@@ -1,5 +1,7 @@
 package com.cybermart.tests;
 
+//import static com.cybermart.tests.BaseClass.baseURL;
+
 import java.time.Duration;
 import java.util.Set;
 
@@ -18,23 +20,6 @@ public class LoginTest extends BaseClass {
 	// access throughout the class.
 	LoginPage loginPage;
 	HeaderPage headerPage;
-
-	public static final String loginPageTitle = "CyberMart Admin Login";
-	public static final String loginPageURL = "https://admin.cybermart.com/auth/login";
-	public static final String emailPlaceholder = "Enter your email";
-	public static final String passwordPlaceholder = "Enter your password";
-	public static final String errorEmailRequired = "Please enter the email.";
-	public static final String errorPasswordRequired = "Please enter the password.";
-	public static final String errorInvalidEmailOrPassword = "You have entered an invalid email or password.";
-	public static final String errorAccountNotRegistered = "The entered email address is not connected to an account.";
-	public static final String errorMalformedEmail = "Please enter a valid email.";
-	public static final String errorAccountLocked = "Your account has been locked due to invalid login attempts. Please try again after 30 minutes.";
-	public static final String errorAccountLockedTime = "Your account has been locked due to invalid login attempts. Please try again after 29 minutes.";
-	public static final String messageLoginSuccess = "Logged-In successfully";
-	public static final String messageLogoutSuccess = "Logout successfully";
-	public static final String registrationPageURL = "https://next.cybermart.com/register";
-	public static final String validRegisteredEmail = "airas.mangotech@gmail.com";
-	public static final String validPassword = "123456";
 
 	@Test(priority = 1, enabled = true)
 	public void verifyLoginPageLoaded() {
@@ -58,7 +43,7 @@ public class LoginTest extends BaseClass {
 		 * Validates the current URL, myWait method of BaseClass is used to add some
 		 * wait as sometimes driver picks the URL before it's loaded.
 		 */
-		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(loginPageURL));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(strings.getString("urlLoginPage")));
 
 	}
 
@@ -69,7 +54,7 @@ public class LoginTest extends BaseClass {
 		 * Validates the current page Title, myWait method of BaseClass is used to add
 		 * some wait as sometimes driver picks the title of the page before it's loaded.
 		 */
-		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.titleIs(loginPageTitle));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.titleIs(strings.getString("titleLoginPage")));
 
 	}
 
@@ -165,7 +150,7 @@ public class LoginTest extends BaseClass {
 	public void verifyEmailPlaceholder() {
 
 		// Created local variable for expected result.
-		String expectedPlaceholder = emailPlaceholder;
+		String expectedPlaceholder = strings.getString("placeholderEmail");
 
 		// Get the actual placeholder of email field.
 		String actualPlaceholder = loginPage.getEmailFieldPlaceholder();
@@ -179,7 +164,7 @@ public class LoginTest extends BaseClass {
 	public void verifyPasswordPlaceholder() {
 
 		// Created local variable for expected result.
-		String expectedPlaceholder = passwordPlaceholder;
+		String expectedPlaceholder = strings.getString("placeholderPassword");
 
 		// Get the actual placeholder of email field.
 		String actualPlaceholder = loginPage.getPasswordFieldPlaceholder();
@@ -193,7 +178,7 @@ public class LoginTest extends BaseClass {
 	public void verifyEmailRequiredErrorMessage() {
 
 		// Created local variable to store expected result.
-		String expectedError = errorEmailRequired;
+		String expectedError = strings.getString("errorEmailRequired");
 
 		// Clicks the email field.
 		loginPage.clickEmailField();
@@ -213,7 +198,7 @@ public class LoginTest extends BaseClass {
 	public void verifyPasswordRequiredErrorMessage() {
 
 		// Created local variable to store expected result.
-		String expectedError = errorPasswordRequired;
+		String expectedError = strings.getString("errorPasswordRequired");
 
 		// Clicks the password field.
 		loginPage.clickPasswordField();
@@ -233,7 +218,7 @@ public class LoginTest extends BaseClass {
 	public void verifyBlankEmailLoginFails() {
 
 		// Created local variable to store expected result.
-		String expectedError = errorEmailRequired;
+		String expectedError = strings.getString("errorEmailRequired");
 
 		// Set the value in password field.
 		loginPage.setPassword("Rizwan@123");
@@ -256,7 +241,7 @@ public class LoginTest extends BaseClass {
 	public void verifyBlankPasswordLoginFails() {
 
 		// Created local variable to store expected result.
-		String expectedError = errorPasswordRequired;
+		String expectedError = strings.getString("errorPasswordRequired");
 
 		// Set the value in email field.
 		loginPage.setEmail("rizwan@convextech.com");
@@ -279,10 +264,10 @@ public class LoginTest extends BaseClass {
 	public void verifyBlankEmailAndPasswordLoginFails() {
 
 		// Created local variable to store email required error message.
-		String expectedErrorEmail = errorEmailRequired;
+		String expectedErrorEmail = strings.getString("errorEmailRequired");
 
 		// Created local variable to store password required error message.
-		String expectedErrorPassword = errorPasswordRequired;
+		String expectedErrorPassword = strings.getString("errorPasswordRequired");
 
 		// local variable for actual error.
 		String actualError;
@@ -311,10 +296,10 @@ public class LoginTest extends BaseClass {
 	public void verifyInvalidPasswordLoginFails() {
 
 		// Created local variable to store expected error
-		String expectedError = errorInvalidEmailOrPassword;
+		String expectedError = strings.getString("errorInvalidEmailOrPassword");
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(validRegisteredEmail, randomStringGenerator());
+		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"), randomStringGenerator());
 
 		// Get the error returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -328,10 +313,10 @@ public class LoginTest extends BaseClass {
 	public void verifyUnregisteredEmailLoginFails() {
 
 		// Created local variable to store expected error
-		String expectedError = errorAccountNotRegistered;
+		String expectedError = strings.getString("errorAccountNotRegistered");
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(randomStringGenerator() + "@gmail.com", validPassword);
+		loginPage.loginUserByButtonClick(randomStringGenerator() + "@gmail.com", strings.getString("validPassword"));
 
 		// Get the error returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -345,7 +330,7 @@ public class LoginTest extends BaseClass {
 	public void verifyInvalidEmailAndPasswordLoginFails() {
 
 		// Created local variable to store expected error
-		String expectedError = errorAccountNotRegistered;
+		String expectedError = strings.getString("errorAccountNotRegistered");
 
 		// Calls the login method to login user by clicking login button.
 		loginPage.loginUserByButtonClick(randomStringGenerator() + "@gmail.com", randomNumberGenerator());
@@ -363,7 +348,7 @@ public class LoginTest extends BaseClass {
 
 		// Validates the list of invalid email formats.
 		staticInvalidEmailChecker(loginPage.getInputFieldEmail(), loginPage.getbuttonLogin(), loginPage.getEmailError(),
-				errorMalformedEmail);
+				strings.getString("errorMalformedEmail"));
 
 	}
 
@@ -549,10 +534,10 @@ public class LoginTest extends BaseClass {
 	public void verifyAccountLocked() {
 
 		// Created local variable to store the expected error.
-		String expectedError = errorAccountLocked;
+		String expectedError = strings.getString("errorAccountLocked");
 
 		// Set the valid registered email in email field.
-		loginPage.setEmail(validRegisteredEmail);
+		loginPage.setEmail(strings.getString("validRegisteredEmail"));
 
 		// Performs 5 attempt to login.
 		for (int i = 1; i < 5; i++) {
@@ -582,13 +567,13 @@ public class LoginTest extends BaseClass {
 	public void verifyAccountLockedTime() throws InterruptedException {
 
 		// Created local variable to store expected error message.
-		String expectedError = errorAccountLockedTime;
+		String expectedError = strings.getString("errorAccountLockedTime");
 
 		// Added wait for 1 minutes.
 		Thread.sleep(60000);
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
+		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		// Get actual error message returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -602,10 +587,10 @@ public class LoginTest extends BaseClass {
 	public void verifyLoginWhileAccountLocked() {
 
 		// Created the local variable to store the expected error.
-		String expectedError = errorAccountLocked;
+		String expectedError = strings.getString("errorAccountLocked");
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
+		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		// Get the actual error message.
 		String actualError = loginPage.getPasswordError();
@@ -624,10 +609,10 @@ public class LoginTest extends BaseClass {
 	public void verifyLoginAccountUnlocked() {
 
 		// Created local variable to store expected message.
-		String expectedMessage = messageLoginSuccess;
+		String expectedMessage = strings.getString("messageLoginSuccess");
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
+		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		// Get the actual message on successful login.
 		String actualMessage = loginPage.getToastMessageText();
@@ -641,7 +626,7 @@ public class LoginTest extends BaseClass {
 	public void verifyIsLoginSuccessfull() {
 
 		// Created local variable to store expected message.
-		String expectedMessage = messageLoginSuccess;
+		String expectedMessage = strings.getString("messageLoginSuccess");
 
 		// Checks if the user is login already.
 		if (headerPage.isLoggedIn()) {
@@ -650,12 +635,14 @@ public class LoginTest extends BaseClass {
 			verifyLogoutSuccessfull();
 
 			// Calls the login method to login user by clicking login button.
-			loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
+			loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"),
+					strings.getString("validPassword"));
 
 		} else {
 
 			// Calls the login method to login user by clicking login button.
-			loginPage.loginUserByButtonClick(validRegisteredEmail, validPassword);
+			loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"),
+					strings.getString("validPassword"));
 
 		}
 
@@ -677,7 +664,7 @@ public class LoginTest extends BaseClass {
 	public void verifySubmitLogin() {
 
 		// Created local variable to store expected message.
-		String expectedMessage = messageLoginSuccess;
+		String expectedMessage = strings.getString("messageLoginSuccess");
 
 		// Checks if the user is login already.
 		if (headerPage.isLoggedIn()) {
@@ -686,12 +673,12 @@ public class LoginTest extends BaseClass {
 			verifyLogoutSuccessfull();
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		}
 
@@ -713,7 +700,7 @@ public class LoginTest extends BaseClass {
 	public void verifyRedirectionToHomePage() {
 
 		// Created local variable to store expected URL.
-		String expectedURL = baseURL + "/dashboard";
+		String expectedURL = strings.getString("urlDashboardPage");
 
 		// Checks if the user is login already.
 		if (headerPage.isLoggedIn()) {
@@ -722,12 +709,12 @@ public class LoginTest extends BaseClass {
 			verifyLogoutSuccessfull();
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		}
 
@@ -752,12 +739,12 @@ public class LoginTest extends BaseClass {
 			verifyLogoutSuccessfull();
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		}
 
@@ -765,7 +752,7 @@ public class LoginTest extends BaseClass {
 		driver.navigate().back();
 
 		// Open the URL in the current window of the browser.
-		driver.get(baseURL);
+		driver.get(strings.getString("baseURL"));
 
 		// Get the current login status.
 		boolean loginStatus = headerPage.isLoggedIn();
@@ -779,7 +766,7 @@ public class LoginTest extends BaseClass {
 	public void verifyLogoutSuccessfull() {
 
 		// Created local variable to store the expected message.
-		String expectedMessage = messageLogoutSuccess;
+		String expectedMessage = strings.getString("messageLogoutSuccess");
 
 		// Checks if the user is login already.
 		if (headerPage.isLoggedIn()) {
@@ -790,7 +777,7 @@ public class LoginTest extends BaseClass {
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 			// Logout user from the system.
 			headerPage.logoutUser();
@@ -815,7 +802,7 @@ public class LoginTest extends BaseClass {
 	private void verifyAccountAccessByClickingBackAfterLogout() {
 
 		// Created local variable assigned expected URL.
-		String expectedURL = loginPageURL;
+		String expectedURL = strings.getString("urlLoginPage");
 
 		// Created local variable to store actual URL.
 		String actualURL;
@@ -836,7 +823,7 @@ public class LoginTest extends BaseClass {
 			softAssert.assertEquals(actualURL, expectedURL);
 
 			// Opens the dashboard URL in the browser.
-			driver.get(baseURL + "/dashboard");
+			driver.get(strings.getString("urlDashboardPage"));
 
 			// Get the current page URL.
 			actualURL = driver.getCurrentUrl();
@@ -862,7 +849,7 @@ public class LoginTest extends BaseClass {
 			softAssert.assertEquals(actualURL, expectedURL);
 
 			// Opens the dashboard URL in the browser.
-			driver.get(baseURL + "/dashboard");
+			driver.get(strings.getString("urlDashboardPage"));
 
 			// Get the current page URL.
 			actualURL = driver.getCurrentUrl();
@@ -899,9 +886,10 @@ public class LoginTest extends BaseClass {
 					driver.switchTo().window(window);
 
 					// Perform the actions on new window
-					driver.get(loginPageURL);
+					driver.get(strings.getString("urlLoginPage"));
 
-					result = myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(baseURL + "/dashboard"));
+					result = myWait(Duration.ofSeconds(5))
+							.until(ExpectedConditions.urlToBe(strings.getString("urlDashboardPage")));
 
 				}
 			}
@@ -933,9 +921,10 @@ public class LoginTest extends BaseClass {
 					driver.switchTo().window(window);
 
 					// Perform the actions on new window
-					driver.get(loginPageURL);
+					driver.get(strings.getString("urlLoginPage"));
 
-					result = myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(baseURL + "/dashboard"));
+					result = myWait(Duration.ofSeconds(5))
+							.until(ExpectedConditions.urlToBe(strings.getString("urlDashboardPage")));
 
 				}
 			}
@@ -1006,7 +995,7 @@ public class LoginTest extends BaseClass {
 			loginPage = new LoginPage();
 
 			String currentURL = driver.getCurrentUrl();
-			Assert.assertEquals(currentURL, baseURL + "/dashboard");
+			Assert.assertEquals(currentURL, strings.getString("urlDashboardPage"));
 
 		} else {
 
@@ -1019,7 +1008,7 @@ public class LoginTest extends BaseClass {
 			loginPage = new LoginPage();
 
 			String currentURL = driver.getCurrentUrl();
-			Assert.assertEquals(currentURL, baseURL + "/dashboard");
+			Assert.assertEquals(currentURL, strings.getString("urlDashboardPage"));
 
 		}
 
