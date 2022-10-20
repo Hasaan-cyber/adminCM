@@ -12,6 +12,7 @@ import com.cybermart.pages.ForgotPasswordPage;
 import com.cybermart.pages.HeaderPage;
 import com.cybermart.pages.LoginPage;
 import com.cybermart.pages.ManageBrandsPage;
+import com.cybermart.pages.MarketPlacePage;
 import com.cybermart.pages.SideNavigationMenu;
 import com.cybermart.pages.TableActions;
 
@@ -22,7 +23,8 @@ public class ManageBrandsTest extends BaseClass {
 	SideNavigationMenu sideNavigationMenu;
 	ManageBrandsPage manageBrandsPage;
 	TableActions tableActions;
-	SoftAssert softAssert = new SoftAssert();
+	MarketPlacePage marketPlacePage;
+
 
 	public static final String manageBrandsPageURL = "https://admin.cybermart.com/market-place/manage-brands/all-brands";
 	public static final String addNewBrandPageURL = "https://admin.cybermart.com/market-place/manage-brands/all-brands/add-brand";
@@ -49,110 +51,117 @@ public class ManageBrandsTest extends BaseClass {
 		sideNavigationMenu = new SideNavigationMenu();
 		manageBrandsPage = new ManageBrandsPage();
 		tableActions = new TableActions();
-		
+		marketPlacePage = new MarketPlacePage();
+
 		loginPage.loginUserBySubmit(validRegisteredEmail, validPassword);
 
 		Assert.assertTrue(headerPage.isLoggedIn(), "ERROR! Login Failed.");
 
 	}
-	
+
 	@Test(priority = 2, enabled = true)
 	public void verifyManageBrandsPageLoaded() {
 
-		sideNavigationMenu.clickAtMarketplaceModule();
+		listItemSelector(sideNavigationMenu.getListOfMainModules(), "Market Place");
 		
-		sideNavigationMenu.clickAtManageBrandsSubModule();
+		listItemSelector(marketPlacePage.getListOfModules(), "Manage Brands");
 
 		Assert.assertTrue(jsPageLoadingStatus(), "ERROR! All Brands Page Did Not Load Successfully.");
 
 	}
-	
+
 	@Test(priority = 3, enabled = true)
 	public void verifyManageBrandsPageURL() {
 
 		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(manageBrandsPageURL));
 
 	}
-	
+
 	@Test(priority = 4, enabled = true)
 	public void verifyManageBrandsPageTabsDisplayed() {
 
-		Assert.assertEquals(headerPage.getPageMainTabAtTop(0).getText(), "All Brands", "ERROR! Manage Brands Page First (All Brands) Tab Title Wrong/Changed.");
-		Assert.assertEquals(headerPage.getPageMainTabAtTop(1).getText(), "Store Brands", "ERROR! Manage Brands Page Second (Store Brands) Tab Title Wrong/Changed.");
+		Assert.assertEquals(headerPage.getPageMainTabAtTop(0).getText(), "All Brands",
+				"ERROR! Manage Brands Page First (All Brands) Tab Title Wrong/Changed.");
+		Assert.assertEquals(headerPage.getPageMainTabAtTop(1).getText(), "Store Brands",
+				"ERROR! Manage Brands Page Second (Store Brands) Tab Title Wrong/Changed.");
 
 	}
-	
+
 	@Test(priority = 5, enabled = true)
 	public void verifyManageBrandsPageBreadcrumbs() {
 
 		actualBreadcrumbs = headerPage.copyBreadcrumbsText();
-		Assert.assertEquals(actualBreadcrumbs, expectedBreadcrumbsAllBrandsPage, "ERROR! All Brands Page Breadcrumbs Are Not Matched.");
+		Assert.assertEquals(actualBreadcrumbs, expectedBreadcrumbsAllBrandsPage,
+				"ERROR! All Brands Page Breadcrumbs Are Not Matched.");
 
 	}
-	
+
 	@Test(priority = 6, enabled = true)
 	public void verifyIsActiveMainTabHighlighted() {
 
 		String actualActiveMainTabColor = headerPage.getPageMainTabAtTop(0).getCssValue("border-color");
-		Assert.assertEquals(actualActiveMainTabColor, expectedActiveMainTabColor, "ERROR! Manage Brands Page Active Tab Not Highlighted/Opened.");
+		Assert.assertEquals(actualActiveMainTabColor, expectedActiveMainTabColor,
+				"ERROR! Manage Brands Page Active Tab Not Highlighted/Opened.");
 
 	}
-	
+
 	@Test(priority = 7, enabled = true)
 	public void verifySearchPlaceholder() {
 
 		String actualSearchFieldPlaceholder = tableActions.getSearchFieldPlaceholderText();
-		Assert.assertEquals(actualSearchFieldPlaceholder, expectedSearchFieldPlaceholder, "ERROR! All Brands Page Search Field Placeholder Text Not Matched.");
+		Assert.assertEquals(actualSearchFieldPlaceholder, expectedSearchFieldPlaceholder,
+				"ERROR! All Brands Page Search Field Placeholder Text Not Matched.");
 
 	}
-	
+
 	@Test(priority = 8, enabled = true)
 	public void verifySearchFunctionality() throws InterruptedException {
-		
-		if(tableActions.verifyPageIsNotBlank() == true) {
+
+		if (tableActions.verifyPageIsNotBlank() == true) {
 			Thread.sleep(5000);
 
 			tableActions.enterRandomKeywordIntoSearchField(7);
-			
+
 			tableActions.verifyIsCorrectSearchResultsShow(0, 6);
-			
+
 		}
 
 	}
-	
+
 	@Test(priority = 9, enabled = true)
 	public void verifyAllRecordsLoadedAfterClearingSearch() throws InterruptedException {
-			
+
 		tableActions.clearSearchField();
 
 	}
-	
+
 	@Test(priority = 10, enabled = true)
 	public void verifyAddNewBrandPageLoaded() {
-		
+
 		tableActions.clickAtAddNewButton();
-		
+
 		Assert.assertTrue(jsPageLoadingStatus(), "ERROR! Add New Brand Page Did Not Load Successfully.");
-		
+
 		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(addNewBrandPageURL));
-		
+
 	}
-	
+
 	@Test(priority = 11, enabled = true)
 	public void verifyAddNewBrandPageURL() {
-		
+
 		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(addNewBrandPageURL));
-		
+
 	}
-	
+
 	@Test(priority = 12, enabled = true)
 	public void verifyAddNewBrandPageBreadcrumbs() {
 
 		actualBreadcrumbs = headerPage.copyBreadcrumbsText();
-		Assert.assertEquals(actualBreadcrumbs, expectedBreadcrumbsAllBrandsPage, "ERROR! All Brands Page Breadcrumbs Are Not Matched At Add New Brand Page.");
+		Assert.assertEquals(actualBreadcrumbs, expectedBreadcrumbsAllBrandsPage,
+				"ERROR! All Brands Page Breadcrumbs Are Not Matched At Add New Brand Page.");
 
 	}
-	
+
 	@Test(priority = 13, enabled = true)
 	public void verifyAddNewBrandPageHeadingDisplayed() {
 
@@ -160,21 +169,24 @@ public class ManageBrandsTest extends BaseClass {
 		Assert.assertEquals(actualHeadingAddNewBrandPage, expectedHeadingAddNewBrandPage);
 
 	}
-	
+
 	@Test(priority = 14, enabled = true)
 	public void verifyAddNewBrandPageTabsDisplayed() {
 
-		Assert.assertEquals(headerPage.getPageSubTabAtTop(0).getText(), "Brand Information", "ERROR! Add New Brand Page First (Brand Information) Tab Title Wrong/Changed.");
-		Assert.assertEquals(headerPage.getPageSubTabAtTop(1).getText(), "SEO", "ERROR! Add New Brand Page Second (SEO) Tab Title Wrong/Changed.");
+		Assert.assertEquals(headerPage.getPageSubTabAtTop(0).getText(), "Brand Information",
+				"ERROR! Add New Brand Page First (Brand Information) Tab Title Wrong/Changed.");
+		Assert.assertEquals(headerPage.getPageSubTabAtTop(1).getText(), "SEO",
+				"ERROR! Add New Brand Page Second (SEO) Tab Title Wrong/Changed.");
 
 	}
-	
+
 	@Test(priority = 15, enabled = true)
 	public void verifyIsActiveSubTabHighlighted() {
 
 		String actualActiveSubTabColor = headerPage.getPageSubTabAtTop(0).getCssValue("background-color");
-		Assert.assertEquals(actualActiveSubTabColor, expectedActiveSubTabColor, "ERROR! Add New Brand Page Active Tab Not Highlighted/Opened.");
+		Assert.assertEquals(actualActiveSubTabColor, expectedActiveSubTabColor,
+				"ERROR! Add New Brand Page Active Tab Not Highlighted/Opened.");
 
 	}
-	
+
 }

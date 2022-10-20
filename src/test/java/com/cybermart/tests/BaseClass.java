@@ -51,6 +51,8 @@ public class BaseClass {
 
 		try {
 
+			strings = new StringsFileReader();
+			
 			if (browser.equalsIgnoreCase("chrome")) {
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver();
@@ -68,7 +70,6 @@ public class BaseClass {
 
 			jsExecutor = (JavascriptExecutor) driver;
 			softAssert = new SoftAssert();
-			strings = new StringsFileReader();
 
 		} catch (Exception e) {
 
