@@ -1,14 +1,7 @@
 package com.cybermart.pages;
 
-//start
-
-
 import java.time.Duration;
-import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,8 +10,7 @@ import com.cybermart.tests.BaseClass;
 
 public class BannerManagementPage extends BaseClass {
 
-	// constructor 
-	//test
+	// constructor
 	public BannerManagementPage() {
 		elementsInitializer();
 	}
@@ -66,28 +58,6 @@ public class BannerManagementPage extends BaseClass {
 	@FindBy(xpath = "//div[contains(text(),'Banner Type inserted successfully')]")
 	WebElement toastMsg;
 	
-	@FindBy(xpath = "//div[contains(text(),'No Option Selected')]")
-	WebElement emptyDelToast;
-	
-
-	@FindBy(xpath = "//input[@class = 'MuiInputBase-input muiltr-mnn31']")
-	WebElement SearchBar;
-
-	@FindBy(xpath = "//span[@class='MuiTypography-root MuiTypography-body1 muiltr-1mbwobu']")
-	WebElement delBtn;
-
-	@FindBy(xpath = "(//button[normalize-space()='Yes'])[1]")
-	WebElement confrmDelbtn;
-	
-	@FindBy(xpath = "//button[normalize-space()='Next']")
-	WebElement paginationNext;
-	
-	
-	@FindBy(xpath = "//button[normalize-space()='Prev']")
-	WebElement paginationprev;
-	
-	
-			
 
 	// functions
 	public void bannerTypeclick() {
@@ -127,12 +97,6 @@ public class BannerManagementPage extends BaseClass {
 	{
 		return toastMsg.getAttribute("innerHTML");
 	}
-	
-	public String getdelToastMsg() 
-	{
-		return emptyDelToast.getAttribute("innerHTML");
-	}
-	
 
 	public void clickBckBtn() {
 		bckBtn.click();
@@ -157,87 +121,4 @@ public class BannerManagementPage extends BaseClass {
 		savBtn.click();
 
 	}
-
-	public void Searchunctionality() {
-
-		try {
-
-			SearchBar.sendKeys("a");
-			SearchBar.sendKeys(Keys.ENTER);
-
-			for (int seconds = 0;; seconds++) {
-
-				if (seconds >= 60) {
-					break;
-				}
-				((JavascriptExecutor) driver).executeScript("window.scrollBy(0,300)", "");
-			}
-			((JavascriptExecutor) driver).executeScript("window.scrollTo(0,document.body.scrollTop)");
-
-			Thread.sleep(300);
-		} catch (InterruptedException e) {
-
-			e.printStackTrace();
-		}
-	}
-
-	public void selectingmultipleChecks() {
-		List<WebElement> checkboxes = driver.findElements(By.xpath("//input[@type = 'checkbox']"));
-		for (int i = 1; i < 3; i++) {
-			checkboxes.get(i).click();
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		// deleting method
-		for (WebElement chkbox : checkboxes) {
-			if (chkbox.isSelected()) {
-				ClickingOnDel();
-				break;
-
-			}
-	
-		}
-
-	}
-
-	public void ClickingOnDel() {
-		delBtn.click();
-		confrmDelbtn.click();
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	
-	public void deleteWithNoSelection() {
-		delBtn.click();
-	}
-	
-	public void checkPagination() {
-		paginationNext.click();
-		paginationprev.click();
-	}
-	
-	public void putDelay() {
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void clickOnDelIcon() {
-		
-	}
-
-	// ending bracket
 }

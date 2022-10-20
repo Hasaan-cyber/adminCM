@@ -25,10 +25,10 @@ public class LoginPage extends BaseClass {
 	@FindBy(xpath = "//form[@class='MuiBox-root muiltr-5xwybr']/h6")
 	private WebElement labelLogin;
 
-	@FindBy(xpath = "(//input[@id='mui-2'])[1]")
+	@FindBy(xpath = "//input[@id='mui-2']")
 	private WebElement inputFieldEmail;
 
-	@FindBy(xpath = "(//input[@id='mui-3'])[1]")
+	@FindBy(xpath = "//input[@id='mui-3']")
 	private WebElement inputFieldPassword;
 
 	@FindBy(xpath = "//label[@id='mui-2-label']")

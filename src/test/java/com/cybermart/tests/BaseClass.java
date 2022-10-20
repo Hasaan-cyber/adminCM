@@ -5,6 +5,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
@@ -27,6 +28,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.asserts.SoftAssert;
 
+import com.cybermart.dataProvider.StringsFileReader;
 import com.googlecode.fightinglayoutbugs.FightingLayoutBugs;
 import com.googlecode.fightinglayoutbugs.LayoutBug;
 import com.googlecode.fightinglayoutbugs.WebPage;
@@ -36,11 +38,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class BaseClass {
 
 	protected static WebDriver driver;
-	String browser = "chrome";
-	String baseURL = "https://admin.cybermart.com";
+	protected static JavascriptExecutor jsExecutor;
+	protected static SoftAssert softAssert;
+	protected static BufferedReader reader;
+	protected static StringsFileReader strings;
 
-	private static JavascriptExecutor jsExecutor;
-	SoftAssert softAssert;
+	private static final String browser = "chrome";
 
 	@BeforeClass
 	// @Parameters("browser")
@@ -51,20 +54,21 @@ public class BaseClass {
 			if (browser.equalsIgnoreCase("chrome")) {
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver();
-				driver.get(baseURL);
+				driver.get(strings.getString("baseURL"));
 				driver.manage().window().maximize();
 			} else if (browser.equalsIgnoreCase("firefox")) {
 				driver = new FirefoxDriver();
-				driver.get(baseURL);
+				driver.get(strings.getString("baseURL"));
 				driver.manage().window().maximize();
 			} else if (browser.equalsIgnoreCase("safari")) {
 				driver = new SafariDriver();
-				driver.get(baseURL);
+				driver.get(strings.getString("baseURL"));
 				driver.manage().window().maximize();
 			}
 
 			jsExecutor = (JavascriptExecutor) driver;
 			softAssert = new SoftAssert();
+			strings = new StringsFileReader();
 
 		} catch (Exception e) {
 
@@ -373,7 +377,7 @@ public class BaseClass {
 
 	}
 
-	public void dropdownOptionSelector(List<WebElement> listOfWebElements, String option) {
+	public void listItemSelector(List<WebElement> listOfWebElements, String option) {
 
 		for (WebElement element : listOfWebElements) {
 
@@ -391,7 +395,7 @@ public class BaseClass {
 	@AfterClass
 	public void tearDown() {
 
-		//driver.quit();
+		driver.quit();
 
 	}
 }
