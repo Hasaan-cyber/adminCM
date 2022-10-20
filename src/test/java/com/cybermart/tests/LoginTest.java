@@ -316,8 +316,7 @@ public class LoginTest extends BaseClass {
 		String expectedError = strings.getString("errorAccountNotRegistered");
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(randomStringGenerator() + "@gmail.com",
-				strings.getString("validPassword"));
+		loginPage.loginUserByButtonClick(randomStringGenerator() + "@gmail.com", strings.getString("validPassword"));
 
 		// Get the error returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -574,8 +573,7 @@ public class LoginTest extends BaseClass {
 		Thread.sleep(60000);
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"),
-				strings.getString("validPassword"));
+		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		// Get actual error message returned from server.
 		String actualError = loginPage.getPasswordError();
@@ -592,8 +590,7 @@ public class LoginTest extends BaseClass {
 		String expectedError = strings.getString("errorAccountLocked");
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"),
-				strings.getString("validPassword"));
+		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		// Get the actual error message.
 		String actualError = loginPage.getPasswordError();
@@ -615,8 +612,7 @@ public class LoginTest extends BaseClass {
 		String expectedMessage = strings.getString("messageLoginSuccess");
 
 		// Calls the login method to login user by clicking login button.
-		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"),
-				strings.getString("validPassword"));
+		loginPage.loginUserByButtonClick(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		// Get the actual message on successful login.
 		String actualMessage = loginPage.getToastMessageText();
@@ -677,14 +673,12 @@ public class LoginTest extends BaseClass {
 			verifyLogoutSuccessfull();
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"),
-					strings.getString("validPassword"));
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"),
-					strings.getString("validPassword"));
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		}
 
@@ -707,7 +701,6 @@ public class LoginTest extends BaseClass {
 
 		// Created local variable to store expected URL.
 		String expectedURL = strings.getString("urlDashboardPage");
-		// baseURL + "/dashboard";
 
 		// Checks if the user is login already.
 		if (headerPage.isLoggedIn()) {
@@ -716,14 +709,12 @@ public class LoginTest extends BaseClass {
 			verifyLogoutSuccessfull();
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"),
-					strings.getString("validPassword"));
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"),
-					strings.getString("validPassword"));
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		}
 
@@ -748,14 +739,12 @@ public class LoginTest extends BaseClass {
 			verifyLogoutSuccessfull();
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"),
-					strings.getString("validPassword"));
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"),
-					strings.getString("validPassword"));
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		}
 
@@ -788,8 +777,7 @@ public class LoginTest extends BaseClass {
 		} else {
 
 			// Calls the login method to login user by clicking Enter key.
-			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"),
-					strings.getString("validPassword"));
+			loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 			// Logout user from the system.
 			headerPage.logoutUser();
