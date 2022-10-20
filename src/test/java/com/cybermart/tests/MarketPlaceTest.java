@@ -27,8 +27,7 @@ public class MarketPlaceTest extends BaseClass {
 		headerPage = new HeaderPage();
 
 		// Login user to the system.
-		loginPage.loginUserBySubmit(properties.getProperty("validRegisteredEmail"),
-				properties.getProperty("validPassword"));
+		loginPage.loginUserBySubmit(strings.getString("validRegisteredEmail"), strings.getString("validPassword"));
 
 		// Validates the user is logged in.
 		Assert.assertTrue(headerPage.isLoggedIn());
@@ -37,7 +36,7 @@ public class MarketPlaceTest extends BaseClass {
 		listItemSelector(sideNavigationMenu.getListOfMainModules(), "Market Place");
 
 		// Validates the page URL updated.
-		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(properties.getProperty("urlMarketPlace")));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(strings.getString("urlMarketPlace")));
 
 		/*
 		 * Using the jsPageLoadingStatus method of BaseClass validates if the page is
@@ -54,7 +53,7 @@ public class MarketPlaceTest extends BaseClass {
 		 * Validates the current URL, myWait method of BaseClass is used to add some
 		 * wait as sometimes driver picks the URL before it's loaded.
 		 */
-		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(properties.getProperty("urlMarketPlace")));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(strings.getString("urlMarketPlace")));
 
 	}
 
@@ -65,7 +64,7 @@ public class MarketPlaceTest extends BaseClass {
 		 * Validates the current page Title, myWait method of BaseClass is used to add
 		 * some wait as sometimes driver picks the title of the page before it's loaded.
 		 */
-		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.titleIs(properties.getProperty("titleMarketplace")));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.titleIs(strings.getString("titleMarketplace")));
 
 	}
 
@@ -90,7 +89,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		// Validates the page URL to verify the user is on expected page.
 		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlGeneralSettings_MarketPlace")));
+				.until(ExpectedConditions.urlToBe(strings.getString("urlGeneralSettings_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -104,8 +103,7 @@ public class MarketPlaceTest extends BaseClass {
 		listItemSelector(marketplacePage.getListOfModules(), "Today Deals");
 
 		// Validates the page URL to verify the user is on expected page.
-		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlTodayDeals_MarketPlace")));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(strings.getString("urlTodayDeals_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -119,8 +117,7 @@ public class MarketPlaceTest extends BaseClass {
 		listItemSelector(marketplacePage.getListOfModules(), "Top Selling");
 
 		// Validates the page URL to verify the user is on expected page.
-		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlTopSelling_MarketPlace")));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(strings.getString("urlTopSelling_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -134,7 +131,7 @@ public class MarketPlaceTest extends BaseClass {
 		listItemSelector(marketplacePage.getListOfModules(), "FAQs");
 
 		// Validates the page URL to verify the user is on expected page.
-		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(properties.getProperty("urlFAQs_MarketPlace")));
+		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(strings.getString("urlFAQs_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -149,7 +146,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		// Validates the page URL to verify the user is on expected page.
 		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlOfficeAddresses_marketPlace")));
+				.until(ExpectedConditions.urlToBe(strings.getString("urlOfficeAddresses_marketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -164,7 +161,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		// Validates the page URL to verify the user is on expected page.
 		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlManageBanners_MarketPlace")));
+				.until(ExpectedConditions.urlToBe(strings.getString("urlManageBanners_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -179,7 +176,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		// Validates the page URL to verify the user is on expected page.
 		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlManageBrands_MarketPlace")));
+				.until(ExpectedConditions.urlToBe(strings.getString("urlManageBrands_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -194,7 +191,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		// Validates the page URL to verify the user is on expected page.
 		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlManageCategories_MarketPlace")));
+				.until(ExpectedConditions.urlToBe(strings.getString("urlManageCategories_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -209,7 +206,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		// Validates the page URL to verify the user is on expected page.
 		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlFeaturedProducts_MarketPlace")));
+				.until(ExpectedConditions.urlToBe(strings.getString("urlFeaturedProducts_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();
@@ -224,7 +221,7 @@ public class MarketPlaceTest extends BaseClass {
 
 		// Validates the page URL to verify the user is on expected page.
 		myWait(Duration.ofSeconds(5))
-				.until(ExpectedConditions.urlToBe(properties.getProperty("urlOfficeContactInformation_MarketPlace")));
+				.until(ExpectedConditions.urlToBe(strings.getString("urlOfficeContactInformation_MarketPlace")));
 
 		// Redirects back to the Market Place page.
 		driver.navigate().back();

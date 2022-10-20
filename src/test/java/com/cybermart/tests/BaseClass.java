@@ -6,13 +6,10 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
-import java.util.Properties;
 import java.util.Random;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -31,6 +28,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.asserts.SoftAssert;
 
+import com.cybermart.dataProvider.StringsFileReader;
 import com.googlecode.fightinglayoutbugs.FightingLayoutBugs;
 import com.googlecode.fightinglayoutbugs.LayoutBug;
 import com.googlecode.fightinglayoutbugs.WebPage;
@@ -40,13 +38,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class BaseClass {
 
 	protected static WebDriver driver;
-	protected static Properties properties;
 	protected static JavascriptExecutor jsExecutor;
 	protected static SoftAssert softAssert;
 	protected static BufferedReader reader;
+	protected static StringsFileReader strings;
 
 	private static final String browser = "chrome";
-	private static final String propertyFilePath = "configs//Configuration.properties";
 
 	@BeforeClass
 	// @Parameters("browser")
@@ -57,21 +54,21 @@ public class BaseClass {
 			if (browser.equalsIgnoreCase("chrome")) {
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver();
-				driver.get(properties.getProperty("baseURL"));
+				driver.get(strings.getString("baseURL"));
 				driver.manage().window().maximize();
 			} else if (browser.equalsIgnoreCase("firefox")) {
 				driver = new FirefoxDriver();
-				driver.get(properties.getProperty("baseURL"));
+				driver.get(strings.getString("baseURL"));
 				driver.manage().window().maximize();
 			} else if (browser.equalsIgnoreCase("safari")) {
 				driver = new SafariDriver();
-				driver.get(properties.getProperty("baseURL"));
+				driver.get(strings.getString("baseURL"));
 				driver.manage().window().maximize();
 			}
 
 			jsExecutor = (JavascriptExecutor) driver;
 			softAssert = new SoftAssert();
-			ConfigFileReader();
+			strings = new StringsFileReader();
 
 		} catch (Exception e) {
 
@@ -392,24 +389,6 @@ public class BaseClass {
 				break;
 
 			}
-		}
-	}
-
-	public void ConfigFileReader() {
-
-		try {
-			reader = new BufferedReader(new FileReader(propertyFilePath));
-			properties = new Properties();
-			try {
-				properties.load(reader);
-				reader.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Configuration.properties not found at " + propertyFilePath);
 		}
 	}
 
