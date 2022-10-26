@@ -4,6 +4,7 @@ package com.cybermart.pages;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 import com.cybermart.tests.BaseClass;
+import com.cybermart.tests.MarketPlaceBannersTest;
 
 public class MarketPlaceBannersPage extends BaseClass{
 	
@@ -20,7 +22,8 @@ public class MarketPlaceBannersPage extends BaseClass{
 	public MarketPlaceBannersPage() {
 		elementsInitializer();
 	}
-
+	
+	
 //locators 
 	@FindBy(xpath = "//span[normalize-space()='Market Place']")
 	WebElement marketPlaceTab;
@@ -63,6 +66,9 @@ public class MarketPlaceBannersPage extends BaseClass{
 
 	@FindBys(@FindBy(xpath = "//button[@aria-label = 'delete']"))
 	List<WebElement> DeleteIcon;
+	
+	@FindBys(@FindBy(xpath = "//button[@aria-label = 'edit']"))
+	List<WebElement> EditIcon;
 
 	@FindBy(xpath = "//input[@type='file']")
 	WebElement imgBtn;
@@ -84,6 +90,12 @@ public class MarketPlaceBannersPage extends BaseClass{
 
 	@FindBy(xpath = "//button[@aria-label = 'delete']")
 	WebElement deleteBtnsSvg;
+	
+
+	@FindBy(xpath = "//button[@title = 'cancel']")
+	WebElement  CancelBtn ;
+	
+	
 //functions 
 	public void clickOnMarketPlace() {
 
@@ -181,8 +193,24 @@ public class MarketPlaceBannersPage extends BaseClass{
 		int index = ram.nextInt(1, 5);
 		DeleteIcon.get(index).click();
 		confrmDelbtn.click();
+		
 	}
 
+	
+	public void editRandom() {
+	
+		
+		Random ram = new Random();
+		int index = ram.nextInt(3, 5);
+		EditIcon.get(index).click();
+		uploadingImg();
+		clickSavBtn();
+		myWait(Duration.ofSeconds(20));
+		clickOnCancel();
+		
+		
+	}
+	
 	public void deletionMethod() {
 		for (WebElement chkbox : AllChecks) {
 			if (chkbox.isSelected()) {
@@ -230,6 +258,10 @@ public class MarketPlaceBannersPage extends BaseClass{
 
 		return deleteBtnsSvg.isDisplayed();
 
+	}
+	
+	public void clickOnCancel() {
+		CancelBtn.click();
 	}
 
 

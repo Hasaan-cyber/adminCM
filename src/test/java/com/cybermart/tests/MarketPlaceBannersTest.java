@@ -23,8 +23,8 @@ public class MarketPlaceBannersTest  extends BaseClass{
 	MarketPlaceBannersPage marketBannerObj;
 	Faker faker = new Faker(new Locale("en"));
 
-	public static final String validRegisteredEmail = "airas.mangotech@gmail.com";
-	public static final String validPassword = "123456";
+	public static final String validRegisteredEmail = "admin@cybermart.com";
+	public static final String validPassword = "12345Ab!";
 	public static final String BannerURL = "https://admin.cybermart.com/market-place/manage-banners";
 	public static final String PageTitle = "Market Place Banner page";
 	public String currentMessage;
@@ -82,8 +82,13 @@ public class MarketPlaceBannersTest  extends BaseClass{
 		currentMessage = marketBannerObj.getToastMsg();
 		assertEquals(currentMessage, "Banner(s) deleted successfully");
 	}
+	
+	@Test(priority = 6, enabled = true)
+	public void editingRandom() {
+		marketBannerObj.editRandom();
+	}
 
-	@Test(priority = 6, enabled = false)
+	@Test(priority = 7, enabled = false)
 	public void randomDeleting() {
 		// deleting with svg delete icon
 		marketBannerObj.DeleteRandom();
@@ -91,42 +96,42 @@ public class MarketPlaceBannersTest  extends BaseClass{
 		assertEquals(currentMessage, "Banner(s) deleted successfully");
 	}
 
-	@Test(priority = 7, enabled = true)
+	@Test(priority = 8, enabled = true)
 	public void verifyingEditElement() {
 		marketBannerObj.editElementDisplayed();
 	}
 	
 
-	@Test(priority = 8, enabled = true)
+	@Test(priority = 9, enabled = true)
 	public void verifyingDeleteElement() {
 		marketBannerObj.deleteElementDisplayed();
 	}
 
-	@Test(priority = 9, enabled = true)
+	@Test(priority = 10, enabled = true)
 	public void verifyURL() {
 		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(BannerURL));
 	}
 
-	@Test(priority = 10, enabled = true)
+	@Test(priority = 11, enabled = true)
 	public void verifyTitle() {
 		myWait(Duration.ofSeconds(5)).until(ExpectedConditions.titleIs(PageTitle));
 	}
 
-	@Test(priority = 11, enabled = true)
+	@Test(priority = 12, enabled = true)
 	public void pagination() {
 		marketBannerObj.checkPagination();
 		marketBannerObj.travesringpagination();
 
 	}
 
-	@Test(priority = 12, enabled = true)
+	@Test(priority = 13, enabled = true)
 	public void addingBanner() {
 
 		marketBannerObj.addBanner();
 		marketBannerObj.putDelay();
 	}
 
-	@Test(priority = 13, enabled = true)
+	@Test(priority = 14, enabled = true)
 	public void addBannerError() {
 		String currentError;
 		marketBannerObj.clickSavBtn();
@@ -138,10 +143,11 @@ public class MarketPlaceBannersTest  extends BaseClass{
 
 	}
 
-	@Test(priority = 14, enabled = true)
+	@Test(priority = 15, enabled = true)
 	public void addingNewBanner() {
 		driver.navigate().refresh();
 		marketBannerObj.SelectionDrpDown();
+		
 		marketBannerObj.uploadingImg();
 		marketBannerObj.settingDestinationtype(faker.name().firstName());
 		marketBannerObj.clickSavBtn();
